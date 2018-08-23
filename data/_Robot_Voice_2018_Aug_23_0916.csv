@@ -1,0 +1,4 @@
+task_1,task_1_raw,task_1_duration,task_2,task_2_raw,task_2_duration,trials.thisRepN,trials.thisTrialN,trials.thisN,trials.thisIndex,key_resp_3.keys,key_resp_3.rt,response.keys,response.rt,date,frameRate,expName,session,participant,
+,,,,,,,,,,down,0.704478390842,,,2018_Aug_23_0916,59.6255410694038,Robot_Voice,001,,
+sounds/pepper_sydney/sentence_14,1,2,None,None,None,0,0,0,10,,,down,5.17001913383,2018_Aug_23_0916,59.6255410694038,Robot_Voice,001,,
+sounds/pepper_sydney/sentence_10,2,3,None,None,None,0,1,1,6,,,down,2.45016893592,2018_Aug_23_0916,59.6255410694038,Robot_Voice,001,,

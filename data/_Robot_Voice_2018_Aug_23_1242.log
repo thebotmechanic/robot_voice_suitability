@@ -1,0 +1,65 @@
+1.8132 	WARNING 	User requested fullscreen with size [1440  810], but screen is actually [1920, 1080]. Using actual size
+2.0588 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, args=UNKNOWN, autoLog=True, bitsMode=UNKNOWN, blendMode='avg', color=array([ 0.,  0.,  0.]), colorSpace='rgb', fullscr=UNKNOWN, gamma=None, kwargs=UNKNOWN, lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7f062032dc50>, multiSample=False, name='window1', numSamples=2, pos=[0.0, 0.0], screen=0, size=array([1920, 1080]), stereo=False, units='norm', useFBO=True, useRetina=False, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+2.0588 	EXP 	window1: recordFrameIntervals = False
+2.0636 	EXP 	window1: recordFrameIntervals = True
+2.0689 	EXP 	window1: recordFrameIntervals = False
+2.1168 	EXP 	Created instText = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.1, italic=False, name='instText', opacity=1.0, ori=0, pos=array([ 0.,  0.]), rgb=array([ 255.,  255.,  255.]), text='What is your user code?\n', units='norm', win=Window(...), wrapWidth=1)
+2.1211 	EXP 	Created target = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.1, italic=False, name='target', opacity=1.0, ori=0, pos=array([ 0.,  0.]), rgb=array([ 255.,  255.,  255.]), text='default text', units='norm', win=Window(...), wrapWidth=1)
+2.1245 	EXP 	Sound  set volume 1.000
+2.1254 	WARNING 	Requested image 'robot_imgs/pepper' not found but similar filename 'robot_imgs/pepper.png' exists. This will be used instead but changing the filename is advised.
+2.2149 	EXP 	Created image = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([ 1.,  1.,  1.]), colorSpace='rgb', contrast=1.0, depth=-3.0, flipHoriz=False, flipVert=False, image='robot_imgs/pepper', interpolate=True, mask=None, maskParams=None, name='image', opacity=1.0, ori=0.0, pos=array([ 0.,  0.]), size=array([ 256.        ,  316.66666667]), texRes=128, units='pix', win=Window(...))
+2.2152 	WARNING 	Requested image 'robot_imgs/pr2' not found but similar filename 'robot_imgs/pr2.png' exists. This will be used instead but changing the filename is advised.
+2.2649 	EXP 	Created image_2 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([ 1.,  1.,  1.]), colorSpace='rgb', contrast=1.0, depth=-4.0, flipHoriz=False, flipVert=False, image='robot_imgs/pr2', interpolate=True, mask=None, maskParams=None, name='image_2', opacity=1.0, ori=0.0, pos=array([-306.,    0.]), size=array([ 256.        ,  316.66666667]), texRes=128, units='pix', win=Window(...))
+2.2652 	WARNING 	Requested image 'robot_imgs/stevie' not found but similar filename 'robot_imgs/stevie.png' exists. This will be used instead but changing the filename is advised.
+2.3275 	EXP 	Created image_3 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([ 1.,  1.,  1.]), colorSpace='rgb', contrast=1.0, depth=-5.0, flipHoriz=False, flipVert=False, image='robot_imgs/stevie', interpolate=True, mask=None, maskParams=None, name='image_3', opacity=1.0, ori=0.0, pos=array([-612.,    0.]), size=array([ 256.        ,  316.66666667]), texRes=128, units='pix', win=Window(...))
+2.3279 	WARNING 	Requested image 'robot_imgs/casper' not found but similar filename 'robot_imgs/casper.png' exists. This will be used instead but changing the filename is advised.
+2.3905 	EXP 	Created image_4 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([ 1.,  1.,  1.]), colorSpace='rgb', contrast=1.0, depth=-6.0, flipHoriz=False, flipVert=False, image='robot_imgs/casper', interpolate=True, mask=None, maskParams=None, name='image_4', opacity=1.0, ori=0.0, pos=array([ 306.,    0.]), size=array([ 256.        ,  316.66666667]), texRes=128, units='pix', win=Window(...))
+2.3908 	WARNING 	Requested image 'robot_imgs/poli' not found but similar filename 'robot_imgs/poli.png' exists. This will be used instead but changing the filename is advised.
+2.4528 	EXP 	Created image_5 = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([ 1.,  1.,  1.]), colorSpace='rgb', contrast=1.0, depth=-7.0, flipHoriz=False, flipVert=False, image='robot_imgs/poli', interpolate=True, mask=None, maskParams=None, name='image_5', opacity=1.0, ori=0.0, pos=array([ 612.,    0.]), size=array([ 0.5,  0.5]), texRes=128, units='pix', win=Window(...))
+2.4549 	EXP 	instText: autoDraw = True
+3.0563 	DATA 	Keypress: down
+3.0650 	EXP 	Imported sounds.xlsx as conditions, 14 conditions, 5 params
+3.0654 	EXP 	Created sequence: random, trialTypes=14, nReps=1, seed=None
+3.0657 	EXP 	New trial (rep=0, index=0): OrderedDict([('task_1', 'sounds/pepper_sydney/sentence_17.wav'), ('task_1_raw', 1), ('task_1_duration', 2), ('task_2', None), ('dummy', 'sounds/pepper_sydney/sentence_05.wav')])
+3.0712 	EXP 	instText: autoDraw = False
+3.0712 	EXP 	target: text = 'default text'
+3.0712 	EXP 	image: autoDraw = True
+3.0712 	EXP 	image_2: autoDraw = True
+3.0712 	EXP 	image_3: autoDraw = True
+3.0712 	EXP 	image_4: autoDraw = True
+3.0712 	EXP 	image_5: autoDraw = True
+3.5670 	EXP 	target: autoDraw = True
+4.0665 	EXP 	image_5: autoDraw = False
+6.6828 	DATA 	Keypress: down
+6.6842 	EXP 	New trial (rep=0, index=1): OrderedDict([('task_1', 'sounds/pepper_sydney/sentence_08.wav'), ('task_1_raw', 1), ('task_1_duration', 2), ('task_2', None), ('dummy', 'sounds/pepper_sydney/sentence_05.wav')])
+6.6887 	EXP 	target: autoDraw = False
+6.6887 	EXP 	image: autoDraw = False
+6.6887 	EXP 	image_2: autoDraw = False
+6.6887 	EXP 	image_3: autoDraw = False
+6.6887 	EXP 	image_4: autoDraw = False
+6.6887 	EXP 	image_5: autoDraw = False
+6.6887 	EXP 	target: text = 'default text'
+6.6887 	EXP 	image: autoDraw = True
+6.6887 	EXP 	image_2: autoDraw = True
+6.6887 	EXP 	image_3: autoDraw = True
+6.6887 	EXP 	image_4: autoDraw = True
+6.6887 	EXP 	image_5: autoDraw = True
+7.1863 	EXP 	target: autoDraw = True
+7.4747 	DATA 	Keypress: down
+7.4754 	EXP 	New trial (rep=0, index=2): OrderedDict([('task_1', 'sounds/pepper_sydney/sentence_05.wav'), ('task_1_raw', 2), ('task_1_duration', 3), ('task_2', 'sounds/pepper_sydney/sentence_02.wav'), ('dummy', 'sounds/pepper_sydney/sentence_05.wav')])
+7.4861 	EXP 	target: autoDraw = False
+7.4861 	EXP 	image: autoDraw = False
+7.4861 	EXP 	image_2: autoDraw = False
+7.4861 	EXP 	image_3: autoDraw = False
+7.4861 	EXP 	image_4: autoDraw = False
+7.4861 	EXP 	image_5: autoDraw = False
+7.4861 	EXP 	target: text = 'sounds/pepper_sydney/sentence_02.wav'
+7.4861 	EXP 	image: autoDraw = True
+7.4861 	EXP 	image_2: autoDraw = True
+7.4861 	EXP 	image_3: autoDraw = True
+7.4861 	EXP 	image_4: autoDraw = True
+7.4861 	EXP 	image_5: autoDraw = True
+7.9771 	EXP 	target: autoDraw = True
+8.4766 	EXP 	image_5: autoDraw = False
+9.7988 	DATA 	Keypress: escape
+9.8040 	EXP 	window1: mouseVisible = True

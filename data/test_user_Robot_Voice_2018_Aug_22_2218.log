@@ -1,0 +1,48 @@
+9.0728 	WARNING 	User requested fullscreen with size [1440  810], but screen is actually [2880, 1620]. Using actual size
+11.0285 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, args=UNKNOWN, autoLog=True, bitsMode=UNKNOWN, blendMode='avg', color=array([0., 0., 0.]), colorSpace='rgb', fullscr=UNKNOWN, gamma=None, kwargs=UNKNOWN, lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x00000000136066D8>, multiSample=False, name='window1', numSamples=2, pos=[0, 0], screen=0, size=array([2880, 1620]), stereo=False, units=u'norm', useFBO=True, useRetina=False, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType=u'pyglet')
+11.0286 	EXP 	window1: recordFrameIntervals = False
+11.1957 	EXP 	window1: recordFrameIntervals = True
+11.3780 	EXP 	window1: recordFrameIntervals = False
+11.4610 	EXP 	Created instText = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color=u'white', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font=u'Arial', fontFiles=[], height=0.1, italic=False, name='instText', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([255., 255., 255.]), text=newstr(...), units=u'norm', win=Window(...), wrapWidth=1)
+11.4696 	EXP 	Created target = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font=u'Arial', fontFiles=[], height=0.1, italic=False, name='target', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([1., 1., 1.]), text='default text', units=u'norm', win=Window(...), wrapWidth=1)
+11.4837 	EXP 	instText: autoDraw = True
+11.8897 	DATA 	Keypress: down
+11.9014 	EXP 	Imported conditions.xlsx as conditions, 6 conditions, 4 params
+11.9019 	EXP 	Created sequence: random, trialTypes=6, nReps=1, seed=None
+11.9024 	EXP 	New trial (rep=0, index=0): OrderedDict([(u'word', u'red'), (u'colour', u'green'), (u'congruent', 0), (u'corrAns', u'down')])
+11.9202 	EXP 	instText: autoDraw = False
+11.9202 	EXP 	target: color = u'green (named)'
+11.9202 	EXP 	target: text = u'red'
+12.4288 	EXP 	target: autoDraw = True
+12.7576 	DATA 	Keypress: down
+12.7583 	EXP 	New trial (rep=0, index=1): OrderedDict([(u'word', u'blue'), (u'colour', u'red'), (u'congruent', 0), (u'corrAns', u'left')])
+12.7789 	EXP 	target: autoDraw = False
+12.7789 	EXP 	target: color = u'red (named)'
+12.7789 	EXP 	target: text = u'blue'
+13.2803 	EXP 	target: autoDraw = True
+13.4128 	DATA 	Keypress: down
+13.4141 	EXP 	New trial (rep=0, index=2): OrderedDict([(u'word', u'blue'), (u'colour', u'blue'), (u'congruent', 1), (u'corrAns', u'right')])
+13.4297 	EXP 	target: autoDraw = False
+13.4297 	EXP 	target: color = u'blue (named)'
+13.4297 	EXP 	target: text = u'blue'
+13.9459 	EXP 	target: autoDraw = True
+14.1797 	DATA 	Keypress: down
+14.1809 	EXP 	New trial (rep=0, index=3): OrderedDict([(u'word', u'red'), (u'colour', u'red'), (u'congruent', 1), (u'corrAns', u'left')])
+14.2001 	EXP 	target: autoDraw = False
+14.2001 	EXP 	target: color = u'red (named)'
+14.2001 	EXP 	target: text = u'red'
+14.7134 	EXP 	target: autoDraw = True
+14.7472 	DATA 	Keypress: down
+14.7484 	EXP 	New trial (rep=0, index=4): OrderedDict([(u'word', u'green'), (u'colour', u'green'), (u'congruent', 1), (u'corrAns', u'down')])
+14.7685 	EXP 	target: autoDraw = False
+14.7685 	EXP 	target: color = u'green (named)'
+14.7685 	EXP 	target: text = u'green'
+15.2824 	EXP 	target: autoDraw = True
+15.4154 	DATA 	Keypress: down
+15.4162 	EXP 	New trial (rep=0, index=5): OrderedDict([(u'word', u'green'), (u'colour', u'blue'), (u'congruent', 0), (u'corrAns', u'right')])
+15.4331 	EXP 	target: autoDraw = False
+15.4331 	EXP 	target: color = u'blue (named)'
+15.4331 	EXP 	target: text = u'green'
+15.9543 	EXP 	target: autoDraw = True
+16.2815 	DATA 	Keypress: down
+16.3513 	EXP 	window1: mouseVisible = True

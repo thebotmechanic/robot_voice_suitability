@@ -1,0 +1,60 @@
+2.0983 	WARNING 	User requested fullscreen with size [1440  810], but screen is actually [1920, 1080]. Using actual size
+2.3392 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, args=UNKNOWN, autoLog=True, bitsMode=UNKNOWN, blendMode='avg', color=array([ 0.,  0.,  0.]), colorSpace='rgb', fullscr=UNKNOWN, gamma=None, kwargs=UNKNOWN, lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7f9ba707f8d0>, multiSample=False, name='window1', numSamples=2, pos=[0.0, 0.0], screen=0, size=array([1920, 1080]), stereo=False, units='norm', useFBO=True, useRetina=False, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+2.3393 	EXP 	window1: recordFrameIntervals = False
+2.3448 	EXP 	window1: recordFrameIntervals = True
+2.3498 	EXP 	window1: recordFrameIntervals = False
+2.4003 	EXP 	Created instText = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.1, italic=False, name='instText', opacity=1.0, ori=0, pos=array([ 0.,  0.]), rgb=array([ 255.,  255.,  255.]), text='What is your user code?\n', units='norm', win=Window(...), wrapWidth=1)
+2.4050 	EXP 	Created target = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.1, italic=False, name='target', opacity=1.0, ori=0, pos=array([ 0.,  0.]), rgb=array([ 255.,  255.,  255.]), text='default text', units='norm', win=Window(...), wrapWidth=1)
+2.4088 	EXP 	Sound  set volume 1.000
+2.4096 	WARNING 	Requested image 'robot_imgs/pepper' not found but similar filename 'robot_imgs/pepper.png' exists. This will be used instead but changing the filename is advised.
+2.5219 	EXP 	Created image = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([ 1.,  1.,  1.]), colorSpace='rgb', contrast=1.0, depth=-3.0, flipHoriz=False, flipVert=False, image='robot_imgs/pepper', interpolate=True, mask=None, maskParams=None, name='image', opacity=1.0, ori=0.0, pos=array([ 0.,  0.]), size=array([ 384.,  475.]), texRes=128, units='pix', win=Window(...))
+2.5242 	EXP 	instText: autoDraw = True
+3.1771 	DATA 	Keypress: down
+3.1860 	EXP 	Imported sounds.xlsx as conditions, 14 conditions, 5 params
+3.1863 	EXP 	Created sequence: random, trialTypes=14, nReps=1, seed=None
+3.1867 	EXP 	New trial (rep=0, index=0): OrderedDict([('task_1', 'sounds/pepper_sydney/sentence_15.wav'), ('task_1_raw', 1), ('task_1_duration', 2), ('task_2', None), ('dummy', 'sounds/pepper_sydney/sentence_05.wav')])
+3.1917 	EXP 	instText: autoDraw = False
+3.1917 	EXP 	target: text = 'default text'
+3.1917 	EXP 	image: autoDraw = True
+3.6885 	EXP 	target: autoDraw = True
+4.1875 	EXP 	image: autoDraw = False
+5.6396 	DATA 	Keypress: escape
+5.6449 	EXP 	window1: mouseVisible = True
+2.6100 	WARNING 	User requested fullscreen with size [1440  810], but screen is actually [1920, 1080]. Using actual size
+2.8485 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, args=UNKNOWN, autoLog=True, bitsMode=UNKNOWN, blendMode='avg', color=array([ 0.,  0.,  0.]), colorSpace='rgb', fullscr=UNKNOWN, gamma=None, kwargs=UNKNOWN, lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7f5b4962b8d0>, multiSample=False, name='window1', numSamples=2, pos=[0.0, 0.0], screen=0, size=array([1920, 1080]), stereo=False, units='norm', useFBO=True, useRetina=False, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+2.8485 	EXP 	window1: recordFrameIntervals = False
+2.8534 	EXP 	window1: recordFrameIntervals = True
+2.8582 	EXP 	window1: recordFrameIntervals = False
+2.9086 	EXP 	Created instText = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.1, italic=False, name='instText', opacity=1.0, ori=0, pos=array([ 0.,  0.]), rgb=array([ 255.,  255.,  255.]), text='What is your user code?\n', units='norm', win=Window(...), wrapWidth=1)
+2.9134 	EXP 	Created target = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.1, italic=False, name='target', opacity=1.0, ori=0, pos=array([ 0.,  0.]), rgb=array([ 255.,  255.,  255.]), text='default text', units='norm', win=Window(...), wrapWidth=1)
+2.9166 	EXP 	Sound  set volume 1.000
+2.9173 	WARNING 	Requested image 'robot_imgs/pepper' not found but similar filename 'robot_imgs/pepper.png' exists. This will be used instead but changing the filename is advised.
+3.0027 	EXP 	Created image = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([ 1.,  1.,  1.]), colorSpace='rgb', contrast=1.0, depth=-3.0, flipHoriz=False, flipVert=False, image='robot_imgs/pepper', interpolate=True, mask=None, maskParams=None, name='image', opacity=1.0, ori=0.0, pos=array([ 0.,  0.]), size=array([ 256.        ,  316.66666667]), texRes=128, units='pix', win=Window(...))
+3.0045 	EXP 	instText: autoDraw = True
+3.7793 	DATA 	Keypress: down
+3.7895 	EXP 	Imported sounds.xlsx as conditions, 14 conditions, 5 params
+3.7898 	EXP 	Created sequence: random, trialTypes=14, nReps=1, seed=None
+3.7903 	EXP 	New trial (rep=0, index=0): OrderedDict([('task_1', 'sounds/pepper_sydney/sentence_05.wav'), ('task_1_raw', 2), ('task_1_duration', 3), ('task_2', 'sounds/pepper_sydney/sentence_02.wav'), ('dummy', 'sounds/pepper_sydney/sentence_05.wav')])
+3.8064 	EXP 	instText: autoDraw = False
+3.8064 	EXP 	target: text = 'sounds/pepper_sydney/sentence_02.wav'
+3.8064 	EXP 	image: autoDraw = True
+4.2917 	EXP 	target: autoDraw = True
+4.7913 	EXP 	image: autoDraw = False
+5.7275 	DATA 	Keypress: down
+5.7291 	EXP 	New trial (rep=0, index=1): OrderedDict([('task_1', 'sounds/pepper_sydney/sentence_15.wav'), ('task_1_raw', 1), ('task_1_duration', 2), ('task_2', None), ('dummy', 'sounds/pepper_sydney/sentence_05.wav')])
+5.7351 	EXP 	target: autoDraw = False
+5.7351 	EXP 	image: autoDraw = False
+5.7351 	EXP 	target: text = 'sounds/pepper_sydney/sentence_02.wav'
+5.7351 	EXP 	image: autoDraw = True
+6.2303 	EXP 	target: autoDraw = True
+6.7296 	EXP 	image: autoDraw = False
+12.0749 	DATA 	Keypress: down
+12.0773 	EXP 	New trial (rep=0, index=2): OrderedDict([('task_1', 'sounds/pepper_sydney/sentence_14.wav'), ('task_1_raw', 1), ('task_1_duration', 2), ('task_2', None), ('dummy', 'sounds/pepper_sydney/sentence_05.wav')])
+12.0824 	EXP 	target: autoDraw = False
+12.0824 	EXP 	image: autoDraw = False
+12.0824 	EXP 	target: text = 'sounds/pepper_sydney/sentence_02.wav'
+12.0824 	EXP 	image: autoDraw = True
+12.5788 	EXP 	target: autoDraw = True
+13.0777 	EXP 	image: autoDraw = False
+13.6595 	DATA 	Keypress: escape
+13.6652 	EXP 	window1: mouseVisible = True

@@ -1,0 +1,8 @@
+word,colour,congruent,corrAns,trials.thisRepN,trials.thisTrialN,trials.thisN,trials.thisIndex,key_resp_2.keys,key_resp_2.rt,response.keys,response.corr,response.rt,date,frameRate,expName,session,participant,
+,,,,,,,,down,0.301000825437,,,,2018_Aug_22_2220,60.00035528238468,Robot_Voice,001,,
+green,green,1,down,0,0,0,2,,,down,1,0.234540063611,2018_Aug_22_2220,60.00035528238468,Robot_Voice,001,,
+blue,red,0,left,0,1,1,5,,,down,0,0.30122465221,2018_Aug_22_2220,60.00035528238468,Robot_Voice,001,,
+red,green,0,down,0,2,2,1,,,down,1,0.331447582887,2018_Aug_22_2220,60.00035528238468,Robot_Voice,001,,
+green,blue,0,right,0,3,3,3,,,down,0,0.298119105057,2018_Aug_22_2220,60.00035528238468,Robot_Voice,001,,
+blue,blue,1,right,0,4,4,4,,,down,0,0.284729763711,2018_Aug_22_2220,60.00035528238468,Robot_Voice,001,,
+red,red,1,left,0,5,5,0,,,down,0,0.332389865976,2018_Aug_22_2220,60.00035528238468,Robot_Voice,001,,

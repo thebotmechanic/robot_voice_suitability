@@ -1,0 +1,5 @@
+word,colour,congruent,corrAns,trials.thisRepN,trials.thisTrialN,trials.thisN,trials.thisIndex,key_resp_3.keys,key_resp_3.rt,response.keys,response.corr,response.rt,date,frameRate,expName,session,participant,
+,,,,,,,,down,0.935546178778,,,,2018_Aug_22_2242,58.6237627659465,Robot_Voice,001,,
+red,green,0,down,0,0,0,1,,,down,1,2.91690342171,2018_Aug_22_2242,58.6237627659465,Robot_Voice,001,,
+red,red,1,left,0,1,1,0,,,down,0,2.56737718838,2018_Aug_22_2242,58.6237627659465,Robot_Voice,001,,
+green,blue,0,right,0,2,2,3,,,down,0,3.03636612692,2018_Aug_22_2242,58.6237627659465,Robot_Voice,001,,

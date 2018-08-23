@@ -1,0 +1,36 @@
+3.0328 	WARNING 	User requested fullscreen with size [1440  810], but screen is actually [2880, 1620]. Using actual size
+4.4729 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, args=UNKNOWN, autoLog=True, bitsMode=UNKNOWN, blendMode='avg', color=array([0., 0., 0.]), colorSpace='rgb', fullscr=UNKNOWN, gamma=None, kwargs=UNKNOWN, lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x0000000012A19710>, multiSample=False, name='window1', numSamples=2, pos=[0, 0], screen=0, size=array([2880, 1620]), stereo=False, units=u'norm', useFBO=True, useRetina=False, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType=u'pyglet')
+4.4729 	EXP 	window1: recordFrameIntervals = False
+4.6388 	EXP 	window1: recordFrameIntervals = True
+4.8225 	EXP 	window1: recordFrameIntervals = False
+4.8823 	EXP 	Created instText = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color=u'white', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font=u'Arial', fontFiles=[], height=0.1, italic=False, name='instText', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([255., 255., 255.]), text='What is your user code?\n', units=u'norm', win=Window(...), wrapWidth=1)
+4.8907 	EXP 	Created target = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font=u'Arial', fontFiles=[], height=0.1, italic=False, name='target', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([1., 1., 1.]), text='default text', units=u'norm', win=Window(...), wrapWidth=1)
+4.9321 	EXP 	Sound  set volume 1.000
+4.9327 	WARNING 	Requested image u'robot_img/pr2' not found but similar filename u'robot_img/pr2.jpg' exists. This will be used instead but changing the filename is advised.
+4.9381 	EXP 	Created image = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-3.0, flipHoriz=False, flipVert=False, image=u'robot_img/pr2', interpolate=True, mask=None, maskParams=None, name='image', opacity=1.0, ori=0.0, pos=array([-0.3,  0. ]), size=array([0.125     , 0.34567901]), texRes=128, units=u'norm', win=Window(...))
+4.9386 	WARNING 	Requested image u'robot_img/pr2' not found but similar filename u'robot_img/pr2.jpg' exists. This will be used instead but changing the filename is advised.
+4.9420 	EXP 	Created image_2 = ImageStim(autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-4.0, flipHoriz=False, flipVert=False, image=u'robot_img/pr2', interpolate=True, mask=None, maskParams=None, name='image_2', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.125     , 0.34567901]), texRes=128, units=u'norm', win=Window(...))
+4.9546 	EXP 	instText: autoDraw = True
+6.1587 	DATA 	Keypress: down
+6.1716 	EXP 	Imported conditions.xlsx as conditions, 6 conditions, 4 params
+6.1719 	EXP 	Created sequence: random, trialTypes=6, nReps=1, seed=None
+6.1722 	EXP 	New trial (rep=0, index=0): OrderedDict([(u'word', u'blue'), (u'colour', u'blue'), (u'congruent', 1), (u'corrAns', u'right')])
+6.1909 	EXP 	instText: autoDraw = False
+6.1909 	EXP 	target: color = u'blue (named)'
+6.1909 	EXP 	target: text = u'blue'
+6.1909 	EXP 	image: autoDraw = True
+6.1909 	EXP 	image_2: autoDraw = True
+6.6917 	EXP 	target: autoDraw = True
+10.6762 	EXP 	target: autoDraw = False
+16.1139 	DATA 	Keypress: down
+16.1149 	EXP 	New trial (rep=0, index=1): OrderedDict([(u'word', u'red'), (u'colour', u'red'), (u'congruent', 1), (u'corrAns', u'left')])
+16.1332 	EXP 	target: autoDraw = False
+16.1332 	EXP 	image: autoDraw = False
+16.1332 	EXP 	image_2: autoDraw = False
+16.1332 	EXP 	target: color = u'red (named)'
+16.1332 	EXP 	target: text = u'red'
+16.1332 	EXP 	image: autoDraw = True
+16.1332 	EXP 	image_2: autoDraw = True
+16.6465 	EXP 	target: autoDraw = True
+17.3414 	DATA 	Keypress: escape
+17.3838 	EXP 	window1: mouseVisible = True

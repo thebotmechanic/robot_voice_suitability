@@ -1,0 +1,84 @@
+2.0014 	WARNING 	User requested fullscreen with size [1440  810], but screen is actually [1920, 1080]. Using actual size
+2.2289 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, args=UNKNOWN, autoLog=True, bitsMode=UNKNOWN, blendMode='avg', color=array([ 0.,  0.,  0.]), colorSpace='rgb', fullscr=UNKNOWN, gamma=None, kwargs=UNKNOWN, lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7f042dd6a860>, multiSample=False, name='window1', numSamples=2, pos=[0.0, 0.0], screen=0, size=array([1920, 1080]), stereo=False, units='norm', useFBO=True, useRetina=False, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+2.2289 	EXP 	window1: recordFrameIntervals = False
+2.2335 	EXP 	window1: recordFrameIntervals = True
+2.2379 	EXP 	window1: recordFrameIntervals = False
+2.2806 	EXP 	Created instText = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.1, italic=False, name='instText', opacity=1.0, ori=0, pos=array([ 0.,  0.]), rgb=array([ 255.,  255.,  255.]), text='What is your user code?\n', units='norm', win=Window(...), wrapWidth=1)
+2.2848 	EXP 	Created target = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.1, italic=False, name='target', opacity=1.0, ori=0, pos=array([ 0.,  0.]), rgb=array([ 255.,  255.,  255.]), text='default text', units='norm', win=Window(...), wrapWidth=1)
+2.2886 	EXP 	Sound  set volume 1.000
+2.2907 	EXP 	instText: autoDraw = True
+3.4001 	DATA 	Keypress: down
+3.4094 	EXP 	Imported sounds.xlsx as conditions, 14 conditions, 3 params
+3.4098 	EXP 	Created sequence: random, trialTypes=14, nReps=1, seed=None
+3.4102 	EXP 	New trial (rep=0, index=0): OrderedDict([('voice1', 'sounds/pepper_sydney/sentence_07.wav'), ('task_1_raw', 2), ('task_1_duration', 3)])
+3.4216 	EXP 	instText: autoDraw = False
+3.4216 	EXP 	target: text = 'sounds/pepper_sydney/sentence_07.wav'
+3.9114 	EXP 	target: autoDraw = True
+8.2384 	DATA 	Keypress: down
+8.2395 	EXP 	New trial (rep=0, index=1): OrderedDict([('voice1', 'sounds/pepper_sydney/sentence_11.wav'), ('task_1_raw', 1), ('task_1_duration', 2)])
+8.2461 	EXP 	target: autoDraw = False
+8.2461 	EXP 	target: text = 'sounds/pepper_sydney/sentence_11.wav'
+8.7407 	EXP 	target: autoDraw = True
+12.6865 	DATA 	Keypress: down
+12.6873 	EXP 	New trial (rep=0, index=2): OrderedDict([('voice1', 'sounds/pepper_sydney/sentence_17.wav'), ('task_1_raw', 1), ('task_1_duration', 2)])
+12.6926 	EXP 	target: autoDraw = False
+12.6926 	EXP 	target: text = 'sounds/pepper_sydney/sentence_17.wav'
+13.1885 	EXP 	target: autoDraw = True
+17.8772 	DATA 	Keypress: down
+17.8777 	EXP 	New trial (rep=0, index=3): OrderedDict([('voice1', 'sounds/pepper_sydney/sentence_14.wav'), ('task_1_raw', 1), ('task_1_duration', 2)])
+17.8835 	EXP 	target: autoDraw = False
+17.8835 	EXP 	target: text = 'sounds/pepper_sydney/sentence_14.wav'
+18.3792 	EXP 	target: autoDraw = True
+18.6875 	DATA 	Keypress: down
+18.6880 	EXP 	New trial (rep=0, index=4): OrderedDict([('voice1', 'sounds/pepper_sydney/sentence_15.wav'), ('task_1_raw', 1), ('task_1_duration', 2)])
+18.6941 	EXP 	target: autoDraw = False
+18.6941 	EXP 	target: text = 'sounds/pepper_sydney/sentence_15.wav'
+19.1891 	EXP 	target: autoDraw = True
+19.4537 	DATA 	Keypress: down
+19.4541 	EXP 	New trial (rep=0, index=5): OrderedDict([('voice1', 'sounds/pepper_sydney/sentence_12.wav'), ('task_1_raw', 2), ('task_1_duration', 3)])
+19.4601 	EXP 	target: autoDraw = False
+19.4601 	EXP 	target: text = 'sounds/pepper_sydney/sentence_12.wav'
+19.9557 	EXP 	target: autoDraw = True
+20.2005 	DATA 	Keypress: down
+20.2013 	EXP 	New trial (rep=0, index=6): OrderedDict([('voice1', 'sounds/pepper_sydney/sentence_10.wav'), ('task_1_raw', 2), ('task_1_duration', 3)])
+20.2069 	EXP 	target: autoDraw = False
+20.2069 	EXP 	target: text = 'sounds/pepper_sydney/sentence_10.wav'
+20.7025 	EXP 	target: autoDraw = True
+21.1269 	DATA 	Keypress: up
+21.6179 	DATA 	Keypress: down
+21.6187 	EXP 	New trial (rep=0, index=7): OrderedDict([('voice1', 'sounds/pepper_sydney/sentence_04.wav'), ('task_1_raw', 1), ('task_1_duration', 2)])
+21.6242 	EXP 	target: autoDraw = False
+21.6242 	EXP 	target: text = 'sounds/pepper_sydney/sentence_04.wav'
+22.1202 	EXP 	target: autoDraw = True
+22.3945 	DATA 	Keypress: down
+22.3960 	EXP 	New trial (rep=0, index=8): OrderedDict([('voice1', 'sounds/pepper_sydney/sentence_06.wav'), ('task_1_raw', 1), ('task_1_duration', 2)])
+22.4019 	EXP 	target: autoDraw = False
+22.4019 	EXP 	target: text = 'sounds/pepper_sydney/sentence_06.wav'
+22.8971 	EXP 	target: autoDraw = True
+23.1662 	DATA 	Keypress: down
+23.1666 	EXP 	New trial (rep=0, index=9): OrderedDict([('voice1', 'sounds/pepper_sydney/sentence_05.wav'), ('task_1_raw', 2), ('task_1_duration', 3)])
+23.1721 	EXP 	target: autoDraw = False
+23.1721 	EXP 	target: text = 'sounds/pepper_sydney/sentence_05.wav'
+23.6680 	EXP 	target: autoDraw = True
+23.9579 	DATA 	Keypress: down
+23.9584 	EXP 	New trial (rep=0, index=10): OrderedDict([('voice1', 'sounds/pepper_sydney/sentence_09.wav'), ('task_1_raw', 2), ('task_1_duration', 3)])
+23.9686 	EXP 	target: autoDraw = False
+23.9686 	EXP 	target: text = 'sounds/pepper_sydney/sentence_09.wav'
+24.4598 	EXP 	target: autoDraw = True
+24.6912 	DATA 	Keypress: down
+24.6916 	EXP 	New trial (rep=0, index=11): OrderedDict([('voice1', 'sounds/pepper_sydney/sentence_16.wav'), ('task_1_raw', 1), ('task_1_duration', 2)])
+24.6969 	EXP 	target: autoDraw = False
+24.6969 	EXP 	target: text = 'sounds/pepper_sydney/sentence_16.wav'
+25.1931 	EXP 	target: autoDraw = True
+25.4355 	DATA 	Keypress: down
+25.4360 	EXP 	New trial (rep=0, index=12): OrderedDict([('voice1', 'sounds/pepper_sydney/sentence_13.wav'), ('task_1_raw', 1), ('task_1_duration', 2)])
+25.4420 	EXP 	target: autoDraw = False
+25.4420 	EXP 	target: text = 'sounds/pepper_sydney/sentence_13.wav'
+25.9372 	EXP 	target: autoDraw = True
+26.2172 	DATA 	Keypress: down
+26.2181 	EXP 	New trial (rep=0, index=13): OrderedDict([('voice1', 'sounds/pepper_sydney/sentence_08.wav'), ('task_1_raw', 1), ('task_1_duration', 2)])
+26.2239 	EXP 	target: autoDraw = False
+26.2239 	EXP 	target: text = 'sounds/pepper_sydney/sentence_08.wav'
+26.7192 	EXP 	target: autoDraw = True
+26.9688 	DATA 	Keypress: down
+27.0227 	EXP 	window1: mouseVisible = True
