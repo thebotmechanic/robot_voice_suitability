@@ -41,27 +41,28 @@ clock = core.Clock()
 mouse = event.Mouse(visible=True,newPos=False,win=win)
 
 # STEP 04: PLAY SOUND 
-voice = sound.Sound('sounds/pepper_sydney/sentence_02.wav')
-waitTime = voice.getDuration()
-listenText = visual.TextStim(win,pos=[0,450],text="Listen to the sound",height=40,wrapWidth=1000,units='pix')
-listenText.draw()
-win.flip()
-voice.play()
-core.wait(waitTime)
+def playSound(voice_clip):
+    voice = sound.Sound(voice_clip)
+    waitTime = voice.getDuration()
+    listenText = visual.TextStim(win,pos=[0,450],text="Listen to the sound",height=40,wrapWidth=1000,units='pix')
+    listenText.draw()
+    win.flip()
+    voice.play()
+    core.wait(waitTime)
+playSound('sounds/pepper_sydney/sentence_02.wav')
 
 # STEP 04: PLOT IMAGES ON SCREEN
 #########
-while not event.getKeys(keyList=["e"]):
-    #mouse= event.Mouse()
-
-    img_robo1 = visual.ImageStim(win=win,
+def selectRobot(choice, ignore=None):
+       
+    selectRobot.img_robo1 = visual.ImageStim(win=win,
         image=expInfo["robot_1"],
         ori=0, 
         pos=(0, 150), 
         size=(768/2.5,950/2.5),
         units='pix'
         )
-    img_robo2 = visual.ImageStim(win=win,
+    selectRobot.img_robo2 = visual.ImageStim(win=win,
         image=expInfo["robot_2"],
         ori=0, 
         pos=(0, -300), 
@@ -69,30 +70,33 @@ while not event.getKeys(keyList=["e"]):
         units='pix'
         )
 
-    img_robo1.draw()
-    img_robo2.draw()
-
+    # for loop to draw robot 
+    # check ignore and remove accordingly
+    selectRobot.img_robo1.draw()
+    selectRobot.img_robo2.draw()
+        
     # STEP 05: ADD TEXT TO THE SCREEN
-    #########
     message1 = visual.TextStim(win, 
-        pos=[0,450],
-        text="What robot best suits the voice?",
-        height=40,
-        wrapWidth=1000,
-        units='pix'
-        )
+    pos=[0,450],
+    text="What robot best suits the voice: {choice} choice?",
+    height=40,
+    wrapWidth=1000,
+    units='pix'
+    )
     message1.draw()
-
     win.flip()
+
+selectRobot('1st')
 
     # STEP 06: CAPTURE WHICH IMAGE WAS CLICKED
     # option 1: use keys
     #keys = event.waitKeys(keyList=["1","2","3","4","5","6","7","8"],timeStamped=clock) 
     #print(keys)
-
+while not event.getKeys(keyList=["e"]):
+        #mouse= event.Mouse()
     # option 2: mouse press
-    print(img_robo1.contains(mouse))
-    if sum(mouse.getPressed()) and img_robo1.contains(mouse):
+    print(selectRobot.img_robo1.contains(mouse))
+    if sum(mouse.getPressed()) and selectRobot.img_robo1.contains(mouse):
         box4 = visual.Rect(win=win,lineColor="black",fillColor="LightBlue",size=[100,50],pos=[-200,-90])
         box4.draw()
         win.flip()
