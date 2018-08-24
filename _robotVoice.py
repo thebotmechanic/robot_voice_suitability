@@ -2,6 +2,7 @@
 from psychopy import core, visual, gui, data, event, sound
 from psychopy.tools.filetools import fromFile, toFile
 import numpy, random
+import pandas as pd # needed for reading csv files
 
 # STEP 02: SAVE A BUNCH OF PARAMS
 #########
@@ -12,7 +13,8 @@ except:
     expInfo = {
     "robot_1":"robot_imgs/stevie.png",
     "robot_2":"robot_imgs/pr2.png",
-    "robot_3":"robot_imgs/pepper.png"
+    "robot_3":"robot_imgs/pepper.png",
+    "robots": ["robot_1","robot_2","robot_3"]
     }
     toFile('lastParams.pickle', expInfo)
 expInfo['dateStr'] = data.getDateStr()  # add the current time
@@ -31,8 +33,8 @@ cond_num = int(gui.data[1])
 # STEP 03: CREATE A WINDOW AND CLOCK
 #########
 win = visual.Window(
-    size=[1440, 810], 
-    fullscr=True, 
+    size=[1440/2, 900], 
+    fullscr=False, 
     screen=0,
     units='pix'
     )
@@ -41,6 +43,14 @@ clock = core.Clock()
 mouse = event.Mouse(visible=True,newPos=False,win=win)
 
 # STEP 04: PLAY SOUND 
+## READ IN SOUNDS FROM SPREADSHEET AND LINK WITH ID AND FILE PATH
+voices = pd.read_csv('sounds.csv')
+pepper = voices.task_1 #you can also use df['column_name']
+print(pepper)
+
+
+
+
 def playSound(voice_clip):
     voice = sound.Sound(voice_clip)
     waitTime = voice.getDuration()
@@ -49,63 +59,74 @@ def playSound(voice_clip):
     win.flip()
     voice.play()
     core.wait(waitTime)
-playSound('sounds/pepper_sydney/sentence_02.wav')
+#playSound('sounds/pepper_sydney/sentence_02.wav')
 
+# for each sound in sound list
+for voice in pepper:
+    playSound(voice)
 # STEP 04: PLOT IMAGES ON SCREEN
 #########
-def selectRobot(choice, ignore=None):
-       
-    selectRobot.img_robo1 = visual.ImageStim(win=win,
-        image=expInfo["robot_1"],
-        ori=0, 
-        pos=(0, 150), 
-        size=(768/2.5,950/2.5),
-        units='pix'
-        )
-    selectRobot.img_robo2 = visual.ImageStim(win=win,
-        image=expInfo["robot_2"],
-        ori=0, 
-        pos=(0, -300), 
-        size=(768/2.5,950/2.5),
-        units='pix'
-        )
+img_robo1 = visual.ImageStim(win,
+    image=expInfo["robot_1"],
+    ori=0, 
+    pos=(0, 150), 
+    size=(768/2.5,950/2.5),
+    units='pix'
+    )
+img_robo2 = visual.ImageStim(win,
+    image=expInfo["robot_2"],
+    ori=0, 
+    pos=(0, -300), 
+    size=(768/2.5,950/2.5),
+    units='pix'
+    )
 
-    # for loop to draw robot 
-    # check ignore and remove accordingly
-    selectRobot.img_robo1.draw()
-    selectRobot.img_robo2.draw()
-        
+robotInfo = {
+"robot_1":"img_robo1",
+"robot_2":"img_robo2",
+}
+robot_list = [img_robo1,img_robo2]
+
+def selectRobot(choice, ignore=None):
+   
+    if ignore:
+        print('ignored')
+    else:
+        for item in robot_list:
+            item.draw()
+    
     # STEP 05: ADD TEXT TO THE SCREEN
     message1 = visual.TextStim(win, 
     pos=[0,450],
-    text="What robot best suits the voice: {choice} choice?",
+    text="What robot best suits the voice: %s choice?" % choice,
     height=40,
     wrapWidth=1000,
     units='pix'
     )
     message1.draw()
-    win.flip()
 
 selectRobot('1st')
 
-    # STEP 06: CAPTURE WHICH IMAGE WAS CLICKED
-    # option 1: use keys
-    #keys = event.waitKeys(keyList=["1","2","3","4","5","6","7","8"],timeStamped=clock) 
-    #print(keys)
-while not event.getKeys(keyList=["e"]):
-        #mouse= event.Mouse()
-    # option 2: mouse press
-    print(selectRobot.img_robo1.contains(mouse))
-    if sum(mouse.getPressed()) and selectRobot.img_robo1.contains(mouse):
-        box4 = visual.Rect(win=win,lineColor="black",fillColor="LightBlue",size=[100,50],pos=[-200,-90])
-        box4.draw()
-        win.flip()
-        print("I love fat titties")
 
+win.flip()
+
+# STEP 06: CAPTURE WHICH IMAGE WAS CLICKED
+# option 1: use keys
+#keys = event.waitKeys(keyList=["1","2","3","4","5","6","7","8"],timeStamped=clock) 
+#print(keys)
+
+while not event.getKeys():
+    if sum(mouse.getPressed()) and img_robo1.contains(mouse):
+        robot_list.remove(img_robo2)
+        selectRobot('2nd')
+        win.flip()
+        print('mouse pressed')
+        core.wait(0.2)
 #if sum(mouse.getPressed()) and myShape.contains(mouse):
 #    print("My shape was pressed")
 ##############
 
+#win.flip()
 event.waitKeys()  # wait for participant to respond
 
 win.close()
