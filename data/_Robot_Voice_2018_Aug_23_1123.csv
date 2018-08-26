@@ -1,6 +1,0 @@
-voice1,task_1_raw,task_1_duration,task_2,task_2_raw,task_2_duration,old,trials.thisRepN,trials.thisTrialN,trials.thisN,trials.thisIndex,key_resp_3.keys,key_resp_3.rt,response.keys,response.rt,session,expName,frameRate,date,participant,
-,,,,,,,,,,,down,1.3043026370000916,,,001,Robot_Voice,2179.11496992,2018_Aug_23_1123,,
-sounds/pepper_sydney/sentence_04.wav,2,3,None,None,None,sounds/pepper_sydney/sentence_10.wav,0,0,0,6,,,down,2.037979546000088,001,Robot_Voice,2179.11496992,2018_Aug_23_1123,,
-sounds/pepper_sydney/sentence_04.wav,2,3,None,None,None,sounds/pepper_sydney/sentence_12.wav,0,1,1,8,,,down,1.8380254069998045,001,Robot_Voice,2179.11496992,2018_Aug_23_1123,,
-sounds/pepper_sydney/sentence_04.wav,1,2,None,None,None,sounds/pepper_sydney/sentence_08.wav,0,2,2,4,,,down,1.7068448459999672,001,Robot_Voice,2179.11496992,2018_Aug_23_1123,,
-sounds/pepper_sydney/sentence_04.wav,1,2,None,None,None,sounds/pepper_sydney/sentence_11.wav,0,3,3,7,,,down,2.2478713200000584,001,Robot_Voice,2179.11496992,2018_Aug_23_1123,,

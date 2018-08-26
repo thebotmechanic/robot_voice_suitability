@@ -1,4 +1,0 @@
-2.0303 	ERROR 	Failed to import the ioLabs library. If you're using your own
-copy of python (not the Standalone distribution of PsychoPy) then
-try installing it with:
-   > pip install ioLabs
