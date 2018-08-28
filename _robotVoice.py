@@ -20,6 +20,7 @@ except:
     "robot_6":"robot_imgs/flash.png",
     "robot_7":"robot_imgs/g5.png",
     "robot_8":"robot_imgs/poli.png",
+    "button":"robot_imgs/button.png",
     "robots": ["robot_1","robot_2","robot_3","robot_4","robot_5","robot_6","robot_7","robot_8"],
     #"testing_list": ["stevie","pr2","pepper","sciprr","icub","flash","g5","poli"]
     "testing_list": ["stevie","pr2"]
@@ -66,7 +67,7 @@ def selectRobot(choice, list, ignore=None):
     message1.draw()
 
 def updateRobotList():
-    return([img_robo1,img_robo2,img_robo3,img_robo4,img_robo5,img_robo6,img_robo7,img_robo8])
+    return([img_robo1,img_robo2,img_robo3,img_robo4,img_robo5,img_robo6,img_robo7,img_robo8, button])
 
 def checkRobot():
     while not event.getKeys(keyList=['e']):
@@ -86,6 +87,8 @@ def checkRobot():
             return ["robot_7", img_robo7, clock.getTime()]
         elif sum(mouse.getPressed()) and img_robo8.contains(mouse):
             return ["robot_8", img_robo8, clock.getTime()]
+        elif sum(mouse.getPressed()) and button.contains(mouse):
+            return ["button", button, clock.getTime()]
 
 def getRating(robot_img=0):
     scales = '1=Extremely Suitable, 9=Extremely Unsuitable'
@@ -112,9 +115,6 @@ def getRating(robot_img=0):
 def saveData(csvfile,data):
     csvfile.write(data) # todo ID, suitability
 
-def shuffleFiles(soundfiles, soundID):
-    random.sample(range(0, len(soundID)), len(soundID))
-
 def test_1(soundfiles, soundID, ID=0):
 
     if (ID == 1):        
@@ -128,9 +128,9 @@ def test_1(soundfiles, soundID, ID=0):
     dataFile = open('data/'+fileName+'.csv', 'w')  
     dataFile.write('ID, voice, choice1, t1, s1, choice2, t2, s2, choice3, t3, s3 \n') # todo ID, suitability
 
-    order = random.sample(range(0, len(robots)), len(robots))
-    soundfiles = [ soundfiles[i] for i in order]
-    soundID = [ soundID[i] for i in order]
+    shuffle = random.sample(range(0, len(robots)), len(robots))
+    soundfiles = [ soundfiles[i] for i in shuffle]
+    soundID = [ soundID[i] for i in shuffle]
 
     counter = 0
     for voices in soundfiles:
@@ -139,22 +139,33 @@ def test_1(soundfiles, soundID, ID=0):
         robot_list = updateRobotList()
         # first turn 
         # a) play 3 sound clips at random
+        voiceOrder = []
         for i in range(0,3):
-            playSound(random.choice(voices))
+            voice = random.choice(voices)
+            voiceOrder.append(voice)
+            playSound(voice)
             core.wait(0.5)        
 
         # b) splash screen with options     
-   
-        for i in range(0,3):
-            selectRobot(i,robot_list)
+        num_pick = 0
+        while  num_pick < 3:
+            selectRobot(num_pick,robot_list)
             win.flip()
             clock.reset()
             [name, clicked, timer] = checkRobot()
             print("time taken was %f seconds" % timer)
-            rating = getRating(expInfo[name])
+            
 
             # todo save details of choice
-            robot_list.remove(clicked)
+            if name != "button":
+                rating = getRating(expInfo[name])
+                robot_list.remove(clicked)
+                num_pick +=1
+            else:
+                rating = 0
+                for i in range(0,len(voiceOrder)):
+                    playSound(voiceOrder[i])
+                    core.wait(0.5) 
             tempResponse.append(name)
             tempResponse.append(str(timer))
             tempResponse.append(str(rating))
@@ -186,40 +197,47 @@ if __name__ == "__main__":    #event.waitKeys()
     # TODO
     img_width = 768/2.5
     img_height = 950/2.5
+    top_spacing = 160
+    bottom_spacing = 285
     buffer = 50
+    offset = -200
     spacing = img_width + buffer
 
     img_robo1 = visual.ImageStim(win,ori=0, size=(img_width,img_height), units='pix',
         image=expInfo["robot_1"],    
-        pos=((buffer/2 + img_width/2), 150)
+        pos=((buffer/2 + img_width/2)+offset, top_spacing)
         )
     img_robo2 = visual.ImageStim(win,ori=0, size=(img_width,img_height), units='pix',
         image=expInfo["robot_2"],    
-        pos=((buffer/2 + img_width/2), -275)
+        pos=((buffer/2 + img_width/2)+offset, -bottom_spacing)
         )
     img_robo3 = visual.ImageStim(win,ori=0, size=(img_width,img_height), units='pix',
         image=expInfo["robot_3"],    
-        pos=((buffer/2 + img_width/2) + spacing, 150)
+        pos=((buffer/2 + img_width/2) + spacing+offset, top_spacing)
         )
     img_robo4 = visual.ImageStim(win,ori=0, size=(img_width,img_height), units='pix',
         image=expInfo["robot_4"],    
-        pos=((buffer/2 + img_width/2) + spacing, -275)
+        pos=((buffer/2 + img_width/2) + spacing+offset, -bottom_spacing)
         )
     img_robo5 = visual.ImageStim(win,ori=0, size=(img_width,img_height), units='pix',
         image=expInfo["robot_5"],    
-        pos=(-(buffer/2 + img_width/2), 150)
+        pos=(-(buffer/2 + img_width/2)+offset, top_spacing)
         )
     img_robo6 = visual.ImageStim(win,ori=0, size=(img_width,img_height), units='pix',
         image=expInfo["robot_6"],    
-        pos=(-(buffer/2 + img_width/2), -275)
+        pos=(-(buffer/2 + img_width/2)+offset, -bottom_spacing)
         )
     img_robo7 = visual.ImageStim(win,ori=0, size=(img_width,img_height), units='pix',
         image=expInfo["robot_7"],    
-        pos=(-(buffer/2 + img_width/2) - spacing, 150)
+        pos=(-(buffer/2 + img_width/2) - spacing+offset, top_spacing)
         )
     img_robo8 = visual.ImageStim(win,ori=0, size=(img_width,img_height), units='pix',
         image=expInfo["robot_8"],    
-        pos=(-(buffer/2 + img_width/2) - spacing, -275)
+        pos=(-(buffer/2 + img_width/2) - spacing+offset, -bottom_spacing)
+        )
+    button = visual.ImageStim(win,ori=0, size=(727/3,432/3), units='pix',
+        image=expInfo["button"],    
+        pos=(700, 0)
         )
     
 
@@ -232,21 +250,25 @@ if __name__ == "__main__":    #event.waitKeys()
         # STEP 04: LOAD SOUND AND IMAGES OF ROBOT
     ## READ IN SOUNDS FROM SPREADSHEET AND LINK WITH ID AND FILE PATH
     voices = pd.read_csv('sounds_t3.csv')
-    #voices2  = [voices.poli, voices.pr2]
     robots = list(voices)
-    voices['pr2'].tolist()
+    # for actual 
     testing_list = []
-    #for i in list(voices):        
-    #    
-    for i in range(0,len(list(voices))):
+
+    for i in range(0,len(robots)):
         testing_list.append(voices[robots[i]].tolist())
-    #    
-    #    print (testing_list[robots])
-    #print( testing_list )
-    #voices2  = [testing_list[0],testing_list[1]]
+
+    #test_1(testing_list,robots)
+
+    # for testing 
+    testing_list2 = []
+    robots2 = robots
+    del robots2[1:5]
+
+    for i in range(0,len(robots2)):
+        testing_list2.append(voices[robots2[i]].tolist())
 
     print(testing_list)
-    test_1(testing_list,list(voices))
+    test_1(testing_list2,robots2)
 
     ################################
     #selectRobot(0)
