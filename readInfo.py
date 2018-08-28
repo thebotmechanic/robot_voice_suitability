@@ -1,12 +1,28 @@
-import pandas as pd
-import random
-voices = pd.read_csv('sounds_t3.csv')
-voices2  = [voices.pepper, voices.pr2]
-robots = list(voices)
-print(robots)
+#import modules
+from psychopy import core, visual, gui, data, event, sound
+from psychopy.tools.filetools import fromFile, toFile
+import numpy, random
+import pandas as pd # needed for reading csv files
+import random 
 
-del robots[2:5]
-print(robots)
+class Person:
+  def __init__(self, name, age):
+    self.name = name
+    self.age = age
+
+  def myfunc(self):
+    print("Hello my name is " + self.name)
+
+p1 = Person("John", 36)
+p1.myfunc() 
 
 
- 
+te = gui.Dlg()
+
+te.addField("Subject ID:")
+te.addField("Condition Num:")
+
+te.show()
+
+
+print (te.data)
