@@ -7,7 +7,7 @@ import random
 logging.console.setLevel(logging.WARNING)
 
 class robotVoiceEval:
-	def __init__(self, guiID=False, logging=True):
+	def __init__(self, guiID=False, logging=True, display=False, shorten=True):
 		# import parameters from previous studies
 		try:  
 		    self.expInfo = fromFile('lastParams.pickle')
@@ -24,12 +24,21 @@ class robotVoiceEval:
 		    "robot_8":"robot_imgs/poli.png",
 		    "button":"robot_imgs/button.png",
 		    "robots": ["robot_1","robot_2","robot_3","robot_4","robot_5","robot_6","robot_7","robot_8"],
-		    #"testing_list": ["stevie","pr2","pepper","sciprr","icub","flash","g5","poli"]
-		    "testing_list": ["stevie","pr2"]
+		    "testing_list": ["stevie","pr2","pepper","sciprr","icub","flash","g5","poli"]
 		    }
 		    self.expInfo['dateStr'] = data.getDateStr() 
 		    toFile('lastParams.pickle', self.expInfo)
 		self.expInfo['dateStr'] = data.getDateStr()  # add the current time
+
+		self.soundLink = {
+		 "stevie":[1],
+		 "pr2":[2,4],
+		 "pepper":[3],
+		 "sciprr":[4,2],
+		 "icub":[5,7],
+		 "flash":[6],
+		 "g5":[7,5],
+		 "poli":[8]}
 
 		# prompt for ID - needs to be before win opened
 		if (guiID==True):    
@@ -44,9 +53,11 @@ class robotVoiceEval:
 		# setup window
 		self.win = visual.Window(
 			size=[1440/2, 900], 
-			fullscr=True, 
+			fullscr=display, 
 			screen=0,
 			units='pix')
+
+		self.shorten = shorten
 
 		# setup clock and mouse events events
 		self.clock = core.Clock()
@@ -77,7 +88,8 @@ class robotVoiceEval:
 
 			testing_list2 = []
 			robots2 = robots
-			del robots2[2:5]
+			if (self.shorten is True):
+				del robots2[2:5]
 
 			for i in range(0,len(robots2)):
 				testing_list2.append(voices[robots2[i]].tolist())
@@ -92,21 +104,6 @@ class robotVoiceEval:
 		soundID = [ soundID[i] for i in shuffle]
 		return [soundfiles, soundID]
 
-
-	'''def playSound(self, voice_clip):
-		voice = sound.Sound(voice_clip)
-		waitTime = voice.getDuration()
-		listenText = visual.TextStim(win,pos=[0,450],text="Listen to the sound",height=40,wrapWidth=1000,units='pix')
-		fixation = visual.GratingStim(win, color=-1, colorSpace='rgb',
-		                          tex=None, mask='cross', size=10)
-		listenText.draw()
-		fixation.draw()
-		win.flip()
-		voice.play()
-		core.wait(waitTime)'''
-
-    
-
 	def speak(self,voice_clip):
 		voice = sound.Sound(voice_clip)
 		waitTime = voice.getDuration()
@@ -119,7 +116,6 @@ class robotVoiceEval:
 		voice.play()
 		core.wait(waitTime)
 		
-
 	def updateRobotList(self, test=1, img_width=768/2.5,img_height=950/2.5):
 		# import robots that will be used for the study
 		self.img_robo1 = visual.ImageStim(self.win, units='pix', size=(img_width,img_height), image=self.expInfo["robot_1"])    
@@ -132,14 +128,13 @@ class robotVoiceEval:
 		self.img_robo8 = visual.ImageStim(self.win, units='pix', size=(img_width,img_height), image=self.expInfo["robot_8"])    
 		self.button = visual.ImageStim(self.win, units='pix', size=(727/3,432/3), image=self.expInfo["button"])    
 		self.robot_list = [self.img_robo1,self.img_robo2,self.img_robo3,self.img_robo4,self.img_robo5,self.img_robo6,self.img_robo7,self.img_robo8, self.button]
-		
+
 		if test==1:
 			top_spacing = 160
 			bottom_spacing = 285
 			buffer = 50
 			offset = -200
 			spacing = img_width + buffer
-			print('test 1')
 			#set way
 			self.img_robo1.pos=((buffer/2 + img_width/2) + offset, top_spacing)
 			self.img_robo2.pos=((buffer/2 + img_width/2) + offset, -bottom_spacing)
@@ -158,9 +153,27 @@ class robotVoiceEval:
 			#set way
 			print("test 2")
 
-	def selectRobot(self, choice, list, ignore=None):   
-		if ignore:
-			print('ignored')
+	def selectRobot(self, choice, list, index = "dummy", ignore=None, filter=False):   
+
+		if filter is True:
+			new_list = []
+			temp_list = list[0:len(list)-1] # copy all except button
+			# identify robot associated with voice
+			print(index)
+			val = self.soundLink[index]
+			val[:] = [x - 1 for x in val]
+			print(len(temp_list))
+			for i in range(0,len(val)):
+				if (i==0):
+					robot_pic = temp_list[ val[i] ]
+				temp_list.pop(val[i])
+			
+			print(len(temp_list))
+			random_pics = random.sample(temp_list,3)
+			random_pics.append(robot_pic)
+
+			for item in random_pics:
+				item.draw()
 		else:
 			for item in list:
 				item.draw()
@@ -223,16 +236,47 @@ class robotVoiceEval:
 		print('rating was %i' % ratingScale.getRating() )
 		return ratingScale.getRating()
 
-	def playVoices(self, soundfiles, soundID, num_iter = 3):			
+	def playVoices(self, soundfiles, soundID, testID = 1, num_iter = 3):			
 		# first turn 
 		# a) play 3 sound clips at random
 		voiceOrder = []
 		for i in range(0,num_iter):
-			voice = random.choice(soundfiles)
-			voiceOrder.append(voice)
-			self.speak(voice)
-			core.wait(0.5)   
+			if testID ==1:
+				voice = random.choice(soundfiles)
+				voiceOrder.append(voice)
+				self.speak(voice)
+				core.wait(0.5)
+			elif testID ==2:
+				print('fuck')
+				voice = soundfiles[i]
+				voiceOrder.append(voice)
+				self.speak(voice)
+				# switch to different splash screen
+				if i == 0:
+					self.splashScreen("Oh, hi there")
+				elif i == 1: 
+					self.splashScreen("Ok, thanks for letting me know.")
+				elif i == 2:
+					self.splashScreen("Sure thing. Take your time.")
 		return voiceOrder
+
+	def splashScreen(self, txtstring):
+		item = visual.TextStim(self.win, 
+		    pos=[0,0],
+		    text=txtstring,
+		    height=60, wrapWidth=1500, units='pix'
+		    )
+
+		advance = visual.TextStim(self.win, 
+		    pos=[0,-400],
+		    text="press any button to continue",
+		    height=30, wrapWidth=1500, units='pix'
+		    )
+		item.draw()
+		advance.draw()
+		self.win.flip()
+		event.waitKeys()
+
 
 	def test1(self, voicefile):
 		# play voices
@@ -273,11 +317,36 @@ class robotVoiceEval:
 			self.saveData(tempResponse+'\n')
 			print(tempResponse)
 
+	def test2(self, voicefile):
+		# play voices
+		[voicelist, voiceNames] = self.loadVoices(voicefile)
+		#[voicelist, voiceNames] = self.randomiseVoices(voicelist, voiceNames )
+
+		for voice in range(0,len(voiceNames)):
+			robot_list = self.updateRobotList()
+			#voiceOrder = self.playVoices(voicelist[voice], voiceNames[voice], testID=2)
+			
+			# show images
+			num_pick = 0
+			tempResponse = [self.ID, voiceNames[voice]] 
+			while  num_pick < 3: 
+				self.selectRobot(num_pick, self.robot_list, index = voiceNames[voice], filter=True)
+				self.win.flip()
+				self.clock.reset()
+				[name, clicked, timer] = self.checkRobot()
+				print("time taken was %f seconds" % timer)
+				num_pick += 1
+
 if __name__ == "__main__":    #event.waitKeys()
 
-	ex1 = robotVoiceEval(guiID=False)
-	ex1.test1('sounds_t3.csv')
-	#ex1.myfunc()
+	# test #1
+	ex1 = robotVoiceEval(guiID=False, display=True, shorten=True)
+	#ex1.test1('sounds_t3.csv')
+
+	ex1.test2('sounds_t4.csv')
+
+	# test #2
+
 
 
 
