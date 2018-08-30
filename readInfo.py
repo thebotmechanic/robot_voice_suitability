@@ -5,6 +5,7 @@ import numpy, random
 import pandas as pd # needed for reading csv files
 import random 
 
-a = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
-del a[-1]
-print(a[0:len(a)-1])
+a = [1,2]
+b = [1,2]
+c = a+b
+print(c)

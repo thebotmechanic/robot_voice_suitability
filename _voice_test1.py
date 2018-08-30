@@ -7,7 +7,7 @@ import random
 logging.console.setLevel(logging.WARNING)
 
 class robotVoiceEval:
-	def __init__(self, guiID=False, logging=True, display=False, shorten=True):
+	def __init__(self, guiID=True, logging=True, display=False, shorten=True):
 		# import parameters from previous studies
 		try:  
 		    self.expInfo = fromFile('lastParams.pickle')
@@ -173,6 +173,10 @@ class robotVoiceEval:
 			random_pics.append(robot_pic)
 
 			for item in random_pics:
+				'''pos = [0,-1000]
+				increment = [0,500]
+				item.pos = pos
+				pos = [pos[0]+increment[0],pos[1]+increment[1]]'''
 				item.draw()
 		else:
 			for item in list:
@@ -299,8 +303,8 @@ class robotVoiceEval:
 
 				# todo save details of choice
 				if name != "button":
-					rating = self.getRating(self.expInfo[name])
-					#rating = 10
+					#rating = self.getRating(self.expInfo[name])
+					rating = 10
 					self.robot_list.remove(clicked)
 					num_pick +=1
 				else:
@@ -324,7 +328,7 @@ class robotVoiceEval:
 
 		for voice in range(0,len(voiceNames)):
 			robot_list = self.updateRobotList()
-			#voiceOrder = self.playVoices(voicelist[voice], voiceNames[voice], testID=2)
+			voiceOrder = self.playVoices(voicelist[voice], voiceNames[voice], testID=2)
 			
 			# show images
 			num_pick = 0
