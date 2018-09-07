@@ -1,0 +1,3 @@
+ID, voice, choice1, t1, s1, choice2, t2, s2, choice3, t3, s3 
+dummy,pr2,robot_5,0.870137848000013,10,robot_2,0.7173654649996024,10,robot_1,1.1596790559997316,10
+dummy,pepper,robot_3,0.6546552890031307,10
