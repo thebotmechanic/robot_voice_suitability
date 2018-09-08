@@ -148,7 +148,8 @@ class robotVoiceEval:
 		self.img_robo7 = visual.ImageStim(self.win, units='pix', size=(img_width,img_height), image=self.expInfo["robot_7"])    
 		self.img_robo8 = visual.ImageStim(self.win, units='pix', size=(img_width,img_height), image=self.expInfo["robot_8"])    
 		self.button = visual.ImageStim(self.win, units='pix', size=(727/3,432/3), image=self.expInfo["button"])    
-		self.robot_list = [self.img_robo1,self.img_robo2,self.img_robo3,self.img_robo4,self.img_robo5,self.img_robo6,self.img_robo7,self.img_robo8, self.button]
+		self.robot_list = [self.img_robo1,self.img_robo2,self.img_robo3,self.img_robo4,self.img_robo5,self.img_robo6,
+		                   self.img_robo7,self.img_robo8, self.button]
 
 		# for test 1
 		if test==1:
@@ -215,20 +216,21 @@ class robotVoiceEval:
 			for item in list:
 				item.draw()
 
-		# notify users to what the choice is
-		if choice == 0:
-			choice = '1st'
-		elif choice == 1:
-			choice = '2nd'
-		elif choice == 2:
-			choice = '3rd'
+		if choice > 0:
+			# notify users to what the choice is
+			if choice == 0:
+				choice = '1st'
+			elif choice == 1:
+				choice = '2nd'
+			elif choice == 2:
+				choice = '3rd'
 
-		message1 = visual.TextStim(self.win, 
-		pos=[0,450],
-		text="What robot best suits the voice: %s choice?" % choice,
-		height=40, wrapWidth=1000, units='pix'
-		)
-		message1.draw()
+			message1 = visual.TextStim(self.win, 
+			pos=[0,450],
+			text="What robot best suits the voice: %s choice?" % choice,
+			height=40, wrapWidth=1000, units='pix'
+			)		
+			message1.draw()
 
 	# check to see if robot was selected
 	def checkRobot(self):
@@ -254,6 +256,43 @@ class robotVoiceEval:
 				return ["button", self.button, 8, self.clock.getTime()]
 
 	# prompts user with likert scale evaluation
+	def getRating2(self, robots, img_width=768/2.5,img_height=950/2.5):
+		label = ['1','2','3','4','5']
+		title = visual.TextStim(self.win, 
+		    pos=[0,450],
+		    text="Please rate the suitability of the robots (1: highly unsuitable, 5: highly suitable)",
+		    height=40, wrapWidth=1000, units='pix' )
+		#[robo,position] = robots[0]
+		#print (robo.pos[0])
+		ratingScale1 = visual.RatingScale(self.win, low=1, high=5, scale=None,
+			pos=[robots[0].pos[0],robots[0].pos[1]+img_height/2],
+			size=0.5, textSize = 0.7, showAccept=False, 
+			labels = label)
+		ratingScale2 = visual.RatingScale(self.win, low=1, high=5, scale=None,
+			pos=[robots[1].pos[0],robots[1].pos[1]+img_height/2],
+			size=0.5, textSize = 0.7, showAccept=False, 
+			labels = label)
+		ratingScale3 = visual.RatingScale(self.win, low=1, high=5, scale=None,
+			pos=[robots[2].pos[0],robots[2].pos[1]+img_height/2],
+			size=0.5, textSize = 0.7, showAccept=False, 
+			labels = label)
+
+		# prompt for user to input rating
+		while (ratingScale1.noResponse)and(ratingScale2.noResponse)and(ratingScale3.noResponse):
+			title.draw() # display title
+			self.selectRobot(-1,self.robot_list) # display robots
+			for i in robots: # display ranking
+				i.draw()
+			ratingScale1.draw()
+			ratingScale2.draw()
+			ratingScale3.draw()
+			self.win.flip()
+		print('rating was %i' % ratingScale1.getRating() )
+		print('rating was %i' % ratingScale2.getRating() )
+		print('rating was %i' % ratingScale3.getRating() )
+		return [ratingScale1.getRating(), ratingScale2.getRating(), ratingScale3.getRating()]
+
+	# prompts user with likert scale evaluation
 	def getRating(self, robot_img=0, img_width=768/2.5,img_height=950/2.5):
 		scales = '1=Extremely Suitable, 9=Extremely Unsuitable'
 		label = ['1','2','3','4','5']
@@ -266,7 +305,9 @@ class robotVoiceEval:
 		    image=robot_img,    
 		    pos=(-400, 0)
 		    )
-		ratingScale = visual.RatingScale(self.win, low=1, high=5, pos=(300,0), size=1, textSize = 0.7, showAccept=True, acceptPreText="click point on scale", acceptSize=1.25, labels = label)
+		ratingScale = visual.RatingScale(self.win, low=1, high=5, pos=(300,0), size=1, 
+			textSize = 0.7, showAccept=True, 
+			acceptPreText="click point on scale", acceptSize=1.25, labels = label)
 		# prompt for user to input rating
 		while ratingScale.noResponse:
 			item.draw()
@@ -330,7 +371,8 @@ class robotVoiceEval:
 	def updateScreen(self, index, iter):
 		self.robot_list[index].opacity = 0.5
 		pos = self.robot_list[index].pos
-		item = visual.TextStim(self.win, pos=pos, text=iter+1, height=60, wrapWidth=1500, units='pix')
+		item = visual.TextStim(self.win, pos=pos, text=iter+1, 
+			height=60, wrapWidth=1500, units='pix')
 		return item
 
 	'''def test1a(self, voicefile):
@@ -409,6 +451,7 @@ class robotVoiceEval:
 						# remove selected robot from list
 						# self.robot_list.remove(clicked)
 						# update screen with to reflect selection
+
 						pick.append(self.updateScreen(index,counter))
 						for item in pick:
 							item.draw()
@@ -423,21 +466,25 @@ class robotVoiceEval:
 							print(voiceOrder[i])
 							self.speak(voiceOrder[i])
 							core.wait(0.5) '''
-					tempResponse.append(name)
-					tempResponse.append(str(timer))
-					tempResponse.append(str(rating))
-					core.wait(0.2)
 
 					if counter == num_picks:
 						self.selectRobot(counter,self.robot_list)
 						# refresh screen and timer 
-						self.win.flip()
+						evalScore = self.getRating2(pick)
+						# self.win.flip()
 						repeat = False
 						## todo write function to get Likert for each category
-						while not event.getKeys(keyList=['e']):
-							i = 5
+						#while not event.getKeys(keyList=['e']):
+						#	i = 5
+
+					tempResponse.append(name)
+					tempResponse.append(str(timer))
+					tempResponse.append(str(rating))					
+					core.wait(0.2)
 
 				# print data to file
+				for i in evalScore:
+						tempResponse.append(str(i))
 				tempResponse = ','.join(tempResponse)
 				self.saveData(tempResponse+'\n')
 				print(tempResponse)
