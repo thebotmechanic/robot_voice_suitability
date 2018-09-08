@@ -34,6 +34,16 @@ class robotVoiceEval:
 		    toFile('lastParams.pickle', self.expInfo)
 		self.expInfo['dateStr'] = data.getDateStr()  # add the current time
 
+		self.voiceLookup = {
+		    "robot_1":"stevie",
+		    "robot_2":"pr2",
+		    "robot_3":"pepper",
+		    "robot_4":"sciprr",
+		    "robot_5":"icub",
+		    "robot_6":"flash",
+		    "robot_7":"g5",
+		    "robot_8":"poli"}
+
 		# index voices with images
 		self.soundLink = {
 		 "stevie":[1], 		# CEREPROC GILES
@@ -81,7 +91,7 @@ class robotVoiceEval:
 	def openLogFile(self):
 		fileName = self.expInfo['dateStr'] + self.expInfo['dateStr']
 		self.dataFile = open('data/'+fileName+'.csv', 'w')  
-		self.dataFile.write('ID, voice, choice1, t1, s1, choice2, t2, s2, choice3, t3, s3 \n') # todo ID, suitability
+		self.dataFile.write('ID, voice, choice1, t1, choice2, t2, choice3, t3, reset, s1, s2, s3 \n') # todo ID, suitability
 
 	# saves stored data to log file
 	def saveData(self,data):
@@ -216,7 +226,7 @@ class robotVoiceEval:
 			for item in list:
 				item.draw()
 
-		if choice > 0:
+		if choice >= 0:
 			# notify users to what the choice is
 			if choice == 0:
 				choice = '1st'
@@ -261,24 +271,28 @@ class robotVoiceEval:
 		title = visual.TextStim(self.win, 
 		    pos=[0,450],
 		    text="Please rate the suitability of the robots (1: highly unsuitable, 5: highly suitable)",
-		    height=40, wrapWidth=1000, units='pix' )
+		    height=40, wrapWidth=850, units='pix' )
+		prompt = visual.TextStim(self.win, 
+		    pos=[0,450],
+		    text="Press any key to continue",
+		    height=40, wrapWidth=400, units='pix' )
 		#[robo,position] = robots[0]
 		#print (robo.pos[0])
-		ratingScale1 = visual.RatingScale(self.win, low=1, high=5, scale=None,
+		ratingScale1 = visual.RatingScale(self.win, low=1, high=5, scale=None, singleClick = True,
 			pos=[robots[0].pos[0],robots[0].pos[1]+img_height/2],
 			size=0.5, textSize = 0.7, showAccept=False, 
 			labels = label)
-		ratingScale2 = visual.RatingScale(self.win, low=1, high=5, scale=None,
+		ratingScale2 = visual.RatingScale(self.win, low=1, high=5, scale=None, singleClick = True,
 			pos=[robots[1].pos[0],robots[1].pos[1]+img_height/2],
 			size=0.5, textSize = 0.7, showAccept=False, 
 			labels = label)
-		ratingScale3 = visual.RatingScale(self.win, low=1, high=5, scale=None,
+		ratingScale3 = visual.RatingScale(self.win, low=1, high=5, scale=None, singleClick = True,
 			pos=[robots[2].pos[0],robots[2].pos[1]+img_height/2],
 			size=0.5, textSize = 0.7, showAccept=False, 
 			labels = label)
 
 		# prompt for user to input rating
-		while (ratingScale1.noResponse)and(ratingScale2.noResponse)and(ratingScale3.noResponse):
+		while (ratingScale1.noResponse)or(ratingScale2.noResponse)or(ratingScale3.noResponse):
 			title.draw() # display title
 			self.selectRobot(-1,self.robot_list) # display robots
 			for i in robots: # display ranking
@@ -287,10 +301,24 @@ class robotVoiceEval:
 			ratingScale2.draw()
 			ratingScale3.draw()
 			self.win.flip()
-		print('rating was %i' % ratingScale1.getRating() )
-		print('rating was %i' % ratingScale2.getRating() )
-		print('rating was %i' % ratingScale3.getRating() )
-		return [ratingScale1.getRating(), ratingScale2.getRating(), ratingScale3.getRating()]
+			# trigger exit if button pressed
+			if sum(self.mouse.getPressed()) and self.button.contains(self.mouse):
+				reset = True
+				print ('triggered')
+				core.wait(0.1)
+				break
+			else:
+				reset = False
+		prompt.draw()		
+		self.win.flip()
+
+		if reset is True:
+			return True
+		else:
+			print('rating was %i' % ratingScale1.getRating() )
+			print('rating was %i' % ratingScale2.getRating() )
+			print('rating was %i' % ratingScale3.getRating() )
+			return [ratingScale1.getRating(), ratingScale2.getRating(), ratingScale3.getRating()]
 
 	# prompts user with likert scale evaluation
 	def getRating(self, robot_img=0, img_width=768/2.5,img_height=950/2.5):
@@ -314,6 +342,7 @@ class robotVoiceEval:
 			img_robot.draw()
 			ratingScale.draw()
 			self.win.flip()
+
 		print('rating was %i' % ratingScale.getRating() )
 		return ratingScale.getRating()
 
@@ -446,8 +475,6 @@ class robotVoiceEval:
 					# todo save details of choice
 					if name != "button":
 						# get rating on Likert scale
-						#rating = self.getRating(self.expInfo[name])
-						rating = 10
 						# remove selected robot from list
 						# self.robot_list.remove(clicked)
 						# update screen with to reflect selection
@@ -461,30 +488,25 @@ class robotVoiceEval:
 						print("breakTrigger called")
 						break
 
-						'''rating = 0
-						for i in range (0,len(voiceOrder)):
-							print(voiceOrder[i])
-							self.speak(voiceOrder[i])
-							core.wait(0.5) '''
+					tempResponse.append(self.voiceLookup[name])
+					tempResponse.append(str(timer))
+					core.wait(0.2)
 
+					# get rating 
 					if counter == num_picks:
 						self.selectRobot(counter,self.robot_list)
 						# refresh screen and timer 
 						evalScore = self.getRating2(pick)
-						# self.win.flip()
-						repeat = False
-						## todo write function to get Likert for each category
-						#while not event.getKeys(keyList=['e']):
-						#	i = 5
-
-					tempResponse.append(name)
-					tempResponse.append(str(timer))
-					tempResponse.append(str(rating))					
-					core.wait(0.2)
-
-				# print data to file
-				for i in evalScore:
-						tempResponse.append(str(i))
+						if evalScore is True:
+							repeat = True
+							tempResponse.append('1') # trigger reset cell
+							break
+						else:
+							repeat = False
+							# print data to file
+							tempResponse.append('0') # trigger non-reset cell
+							for i in evalScore:
+									tempResponse.append(str(i))
 				tempResponse = ','.join(tempResponse)
 				self.saveData(tempResponse+'\n')
 				print(tempResponse)
