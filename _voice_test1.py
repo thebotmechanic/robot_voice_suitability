@@ -18,6 +18,7 @@ class robotVoiceEval:
 		except:  
 		    # create dictionary of robots that are needed
 		    self.expInfo = {
+		    "robot_0":"robot_imgs/r2d2.png",
 		    "robot_1":"robot_imgs/stevie.png",
 		    "robot_2":"robot_imgs/pr2.png",
 		    "robot_3":"robot_imgs/pepper.png",
@@ -32,10 +33,12 @@ class robotVoiceEval:
 		    }
 		    self.expInfo['dateStr'] = data.getDateStr() 
 		    toFile('lastParams.pickle', self.expInfo)
+
 		self.expInfo['dateStr'] = data.getDateStr()  # add the current time
 
 		# used for outputting to log file
 		self.voiceLookup = {
+			"robot_0":"r2d2",
 		    "robot_1":"stevie",
 		    "robot_2":"pr2",
 		    "robot_3":"pepper",
@@ -150,6 +153,14 @@ class robotVoiceEval:
 	
 	# called at the start of program to place robots on the screen
 	def updateRobotList(self, test=1, img_width=768/2.5,img_height=950/2.5):
+
+		if self.training is True:
+			self.expInfo["robot_1"] = "robot_imgs/r2d2.png"
+			self.voiceLookup["robot_1"] = "r2d2"
+		else:
+			self.expInfo["robot_1"] = "robot_imgs/stevie.png"
+			self.voiceLookup["robot_1"] = "stevie"
+		   
 		# initialise robots that will be used for the study
 		self.img_robo1 = visual.ImageStim(self.win, units='pix', size=(img_width,img_height), image=self.expInfo["robot_1"])    
 		self.img_robo2 = visual.ImageStim(self.win, units='pix', size=(img_width,img_height), image=self.expInfo["robot_2"])    
@@ -162,6 +173,8 @@ class robotVoiceEval:
 		self.button = visual.ImageStim(self.win, units='pix', size=(727/3,432/3), image=self.expInfo["button"])    
 		self.robot_list = [self.img_robo1,self.img_robo2,self.img_robo3,self.img_robo4,self.img_robo5,self.img_robo6,
 		                   self.img_robo7,self.img_robo8, self.button]
+
+
 
 		# for test 1
 		if test==1:
@@ -282,15 +295,15 @@ class robotVoiceEval:
 		#print (robo.pos[0])
 		ratingScale1 = visual.RatingScale(self.win, low=1, high=5, scale=None, singleClick = True, markerStart=3,
 			pos=[robots[0].pos[0],robots[0].pos[1]+img_height/2],
-			size=0.5, textSize = 0.7, showAccept=False, 
+			size=0.5, textSize = 0.97, showAccept=False, 
 			labels = label)
 		ratingScale2 = visual.RatingScale(self.win, low=1, high=5, scale=None, singleClick = True, markerStart=3,
 			pos=[robots[1].pos[0],robots[1].pos[1]+img_height/2],
-			size=0.5, textSize = 0.7, showAccept=False, 
+			size=0.5, textSize = 0.97, showAccept=False, 
 			labels = label)
 		ratingScale3 = visual.RatingScale(self.win, low=1, high=5, scale=None, singleClick = True, markerStart=3,
 			pos=[robots[2].pos[0],robots[2].pos[1]+img_height/2],
-			size=0.5, textSize = 0.7, showAccept=False, 
+			size=0.5, textSize = 0.97, showAccept=False, 
 			labels = label)
 
 		# prompt for user to input rating
@@ -445,7 +458,16 @@ class robotVoiceEval:
 			self.saveData(tempResponse+'\n')
 			print(tempResponse)'''
 
-	def test1b(self, voicefile, test_id):
+	def test1b(self, voicefile, test_id, count='A', training=False):
+		
+		if training is True:
+			self.training = True
+			self.splashScreen("Training: Test %s" % count)
+		else:
+			self.training = False
+			# initialise screen
+			self.splashScreen("Test %s" % count)
+		
 		# import and randomise order of voices
 		[voicelist, voiceNames] = self.loadVoices(voicefile)		
 		[voicelist, voiceNames] = self.randomiseVoices(voicelist, voiceNames)
@@ -517,11 +539,23 @@ class robotVoiceEval:
 if __name__ == "__main__":    #event.waitKeys()
 
 	# test #1
-	ex1 = robotVoiceEval(guiID=False, display=True, shorten=True)
+	ex1 = robotVoiceEval(guiID=True, display=True, shorten=True)
 	# RANDOM FUNCTION TO DETERMINE WHAT GOES FIRST
+	
 
-	ex1.test1b('voice_dataset/_csv/voice_lookup_A.csv', 1)
-	ex1.test1b('voice_dataset/_csv/voice_lookup_B.csv', 2)
+	seed = random.randint(1,2)
+	count = 1
+	if (seed == 1):
+		ex1.test1b('voice_dataset/_csv/training.csv', test_id = 1, count='A', training=True)
+		ex1.test1b('voice_dataset/_csv/voice_lookup_A.csv', test_id = 1, count='A')
+		ex1.test1b('voice_dataset/_csv/training.csv', test_id = 2, count='B', training=True)
+		ex1.test1b('voice_dataset/_csv/voice_lookup_B.csv', test_id = 2, count='B')
+	elif (seed == 2):
+		ex1.test1b('voice_dataset/_csv/training.csv', test_id = 2, count='A', training=True)
+		ex1.test1b('voice_dataset/_csv/voice_lookup_B.csv', test_id = 2, count='A')
+		ex1.test1b('voice_dataset/_csv/training.csv', test_id = 1, count='B', training=True)
+		ex1.test1b('voice_dataset/_csv/voice_lookup_A.csv', test_id = 1, count='B')
+		
 
 	# ex1.test2('voice_dataset/_csv/voice_lookup_B.csv')
 

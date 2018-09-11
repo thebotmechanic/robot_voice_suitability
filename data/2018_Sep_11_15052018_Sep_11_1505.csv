@@ -1,3 +1,0 @@
-TestID, UserID, voice, choice1, t1, choice2, t2, choice3, t3, reset, s1, s2, s3 
-test_A,dummy,Cali_F,stevie,1.2923379589992692,pr2,0.323194764998334,sciprr,0.3400246130004234,0,4,4,5
-test_A,dummy,Cali_M,icub,1.5967343160009477,flash,0.28694691200144007,pr2,0.3080078050006705,0,4,4,4
