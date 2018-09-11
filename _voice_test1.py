@@ -34,6 +34,7 @@ class robotVoiceEval:
 		    toFile('lastParams.pickle', self.expInfo)
 		self.expInfo['dateStr'] = data.getDateStr()  # add the current time
 
+		# used for outputting to log file
 		self.voiceLookup = {
 		    "robot_1":"stevie",
 		    "robot_2":"pr2",
@@ -91,13 +92,14 @@ class robotVoiceEval:
 	def openLogFile(self):
 		fileName = self.expInfo['dateStr'] + self.expInfo['dateStr']
 		self.dataFile = open('data/'+fileName+'.csv', 'w')  
-		self.dataFile.write('ID, voice, choice1, t1, choice2, t2, choice3, t3, reset, s1, s2, s3 \n') # todo ID, suitability
+		self.dataFile.write('TestID, UserID, voice, choice1, t1, choice2, t2, choice3, t3, reset, s1, s2, s3 \n') # todo ID, suitability
 
 	# saves stored data to log file
 	def saveData(self,data):
 		self.dataFile.write(data) # todo ID, suitability
 
 	# load voices passes in voicefile arg 
+	## todo repeating work here
 	def loadVoices(self, voicefile):
 			voices = pd.read_csv(voicefile) # read csv
 			robots = list(voices)
@@ -111,7 +113,7 @@ class robotVoiceEval:
 			testing_list2 = []
 			robots2 = robots
 			if (self.shorten is True):
-				del robots2[2:5] # delete voices 2-5 
+				del robots2[2:21] # delete voices 2-5 
 
 			for i in range(0,len(robots2)):
 				testing_list2.append(voices[robots2[i]].tolist())
@@ -443,10 +445,10 @@ class robotVoiceEval:
 			self.saveData(tempResponse+'\n')
 			print(tempResponse)'''
 
-	def test1b(self, voicefile):
+	def test1b(self, voicefile, test_id):
 		# import and randomise order of voices
-		[voicelist, voiceNames] = self.loadVoices(voicefile)
-		[voicelist, voiceNames] = self.randomiseVoices(voicelist, voiceNames )
+		[voicelist, voiceNames] = self.loadVoices(voicefile)		
+		[voicelist, voiceNames] = self.randomiseVoices(voicelist, voiceNames)
 		tempResponse = [] # initialise data to be logged
 
 		# loop to iterate through each voice profile
@@ -456,11 +458,11 @@ class robotVoiceEval:
 				# refresh list of robots
 				robot_list = self.updateRobotList()
 				# play voice files corresponding to voice profile
-				voiceOrder = self.playVoices(voicelist[voice], voiceNames[voice])
-
+				voiceOrder = self.playVoices(voicelist[voice], voiceNames[voice], testID=test_id)
+				repeat = False
 				counter = 0 # initialise loop for selecting top three robots
 				num_picks = 3
-				tempResponse = [self.ID, voiceNames[voice]]  # update log
+				tempResponse = [str(test_id), self.ID, voiceNames[voice]]  # update log
 				pick = [] # initialise list for storing robots chosen
 				while  counter < num_picks: 
 					# show images of robots
@@ -509,41 +511,19 @@ class robotVoiceEval:
 									tempResponse.append(str(i))
 				tempResponse = ','.join(tempResponse)
 				self.saveData(tempResponse+'\n')
-				print(tempResponse)
+				print(tempResponse) 
 
-'''
-	def test2(self, voicefile):
-		# import and randomise order of voices
-		[voicelist, voiceNames] = self.loadVoices(voicefile)
-		#[voicelist, voiceNames] = self.randomiseVoices(voicelist, voiceNames )
-
-		# loop to iterate through each voice profile
-		for voice in range(0,len(voiceNames)):
-			# refresh list of robots
-			robot_list = self.updateRobotList()
-			# play voice files corresponding to voice profile
-			voiceOrder = self.playVoices(voicelist[voice], voiceNames[voice], testID=2)
-			
-			
-			tempResponse = [self.ID, voiceNames[voice]] # initialise data to be logged
-			num_pick = 0 # initialise loop for selecting top three robots
-			while  num_pick < 3:  
-				# call function to select robot
-				self.selectRobot(num_pick, self.robot_list, index = voiceNames[voice], filter=True)
-				# log data 
-				self.win.flip()
-				self.clock.reset()
-				[name, clicked, timer] = self.checkRobot()
-				print("time taken was %f seconds" % timer)
-				num_pick += 1
-			# todo. add new screen where user confirms choice by pressing enter
-'''
 
 if __name__ == "__main__":    #event.waitKeys()
 
 	# test #1
 	ex1 = robotVoiceEval(guiID=False, display=True, shorten=True)
-	ex1.test1b('sounds_t3.csv')
+	# RANDOM FUNCTION TO DETERMINE WHAT GOES FIRST
+
+	ex1.test1b('voice_dataset/_csv/voice_lookup_A.csv', 1)
+	ex1.test1b('voice_dataset/_csv/voice_lookup_B.csv', 2)
+
+	# ex1.test2('voice_dataset/_csv/voice_lookup_B.csv')
 
 	#ex1.test2('sounds_t4.csv')
 
