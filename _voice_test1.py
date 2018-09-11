@@ -278,15 +278,15 @@ class robotVoiceEval:
 		    height=40, wrapWidth=400, units='pix' )
 		#[robo,position] = robots[0]
 		#print (robo.pos[0])
-		ratingScale1 = visual.RatingScale(self.win, low=1, high=5, scale=None, singleClick = True,
+		ratingScale1 = visual.RatingScale(self.win, low=1, high=5, scale=None, singleClick = True, markerStart=3,
 			pos=[robots[0].pos[0],robots[0].pos[1]+img_height/2],
 			size=0.5, textSize = 0.7, showAccept=False, 
 			labels = label)
-		ratingScale2 = visual.RatingScale(self.win, low=1, high=5, scale=None, singleClick = True,
+		ratingScale2 = visual.RatingScale(self.win, low=1, high=5, scale=None, singleClick = True, markerStart=3,
 			pos=[robots[1].pos[0],robots[1].pos[1]+img_height/2],
 			size=0.5, textSize = 0.7, showAccept=False, 
 			labels = label)
-		ratingScale3 = visual.RatingScale(self.win, low=1, high=5, scale=None, singleClick = True,
+		ratingScale3 = visual.RatingScale(self.win, low=1, high=5, scale=None, singleClick = True, markerStart=3,
 			pos=[robots[2].pos[0],robots[2].pos[1]+img_height/2],
 			size=0.5, textSize = 0.7, showAccept=False, 
 			labels = label)

@@ -4,9 +4,14 @@ TO DO
 
 
 add prompt to ask confirmation after top three picks
-align responses with actual robots in csv file
 
-allow reset button to work for whole game
+same voices 
+prompt gui 
+training 
+randomise whether test a or test b
+break between tests
+
+
 
 
 
