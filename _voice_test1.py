@@ -82,7 +82,10 @@ class robotVoiceEval:
 
 		# setting for debugging
 		if shorten:
-			self.shorten = shorten
+			self.shorten = True
+		else:
+			self.shorten = False
+
 
 	# opens a dialog box to get user ID
 	def getID(self):
@@ -93,7 +96,7 @@ class robotVoiceEval:
 
 	# initialise log file
 	def openLogFile(self):
-		fileName = self.expInfo['dateStr'] + self.expInfo['dateStr']
+		fileName = self.ID +'_'+ self.expInfo['dateStr'] + self.expInfo['dateStr']
 		self.dataFile = open('data/'+fileName+'.csv', 'w')  
 		self.dataFile.write('TestID, UserID, voice, choice1, t1, choice2, t2, choice3, t3, reset, s1, s2, s3 \n') # todo ID, suitability
 
@@ -372,12 +375,12 @@ class robotVoiceEval:
 				## todo modify so doesnt choose same voice twice
 				voice = random.choice(soundfiles)
 				voiceOrder.append(voice)
+				soundfiles.remove(voice) # removes item from list
 				self.speak(voice)
 				core.wait(0.5)
 
 			# for staged scenario
 			elif testID ==2:
-				print('fuck')
 				voice = soundfiles[i]
 				voiceOrder.append(voice)
 				self.speak(voice)
@@ -419,46 +422,7 @@ class robotVoiceEval:
 			height=60, wrapWidth=1500, units='pix')
 		return item
 
-	'''def test1a(self, voicefile):
-		# play voices
-		[voicelist, voiceNames] = self.loadVoices(voicefile)
-		[voicelist, voiceNames] = self.randomiseVoices(voicelist, voiceNames )
-		tempResponse = []
-		for voice in range(0,len(voiceNames)):
-			robot_list = self.updateRobotList()
-			voiceOrder = self.playVoices(voicelist[voice], voiceNames[voice])
-
-			# show images
-			num_pick = 0
-			tempResponse = [self.ID, voiceNames[voice]] 
-			while  num_pick < 3: 
-				self.selectRobot(num_pick,self.robot_list)
-				self.win.flip()
-				self.clock.reset()
-				[name, clicked, index, timer] = self.checkRobot()
-				print("time taken was %f seconds" % timer)
-
-				# todo save details of choice
-				if name != "button":
-					#rating = self.getRating(self.expInfo[name])
-					rating = 10
-					self.robot_list.remove(clicked)
-					num_pick +=1
-				else:
-					rating = 0
-					for i in range (0,len(voiceOrder)):
-						print(voiceOrder[i])
-						self.speak(voiceOrder[i])
-						core.wait(0.5) 
-				tempResponse.append(name)
-				tempResponse.append(str(timer))
-				tempResponse.append(str(rating))
-				core.wait(0.2)
-			tempResponse = ','.join(tempResponse)
-			self.saveData(tempResponse+'\n')
-			print(tempResponse)'''
-
-	def test1b(self, voicefile, test_id, count='A', training=False):
+	def test(self, voicefile, test_id, count='A', training=False):
 		
 		if training is True:
 			self.training = True
@@ -539,27 +503,49 @@ class robotVoiceEval:
 if __name__ == "__main__":    #event.waitKeys()
 
 	# test #1
-	ex1 = robotVoiceEval(guiID=True, display=True, shorten=True)
+	ex1 = robotVoiceEval(guiID=True, display=True, shorten=False)
 	# RANDOM FUNCTION TO DETERMINE WHAT GOES FIRST
-	
+	testID = print(ex1.ID)
 
-	seed = random.randint(1,2)
-	count = 1
-	if (seed == 1):
-		ex1.test1b('voice_dataset/_csv/training.csv', test_id = 1, count='A', training=True)
-		ex1.test1b('voice_dataset/_csv/voice_lookup_A.csv', test_id = 1, count='A')
-		ex1.test1b('voice_dataset/_csv/training.csv', test_id = 2, count='B', training=True)
-		ex1.test1b('voice_dataset/_csv/voice_lookup_B.csv', test_id = 2, count='B')
-	elif (seed == 2):
-		ex1.test1b('voice_dataset/_csv/training.csv', test_id = 2, count='A', training=True)
-		ex1.test1b('voice_dataset/_csv/voice_lookup_B.csv', test_id = 2, count='A')
-		ex1.test1b('voice_dataset/_csv/training.csv', test_id = 1, count='B', training=True)
-		ex1.test1b('voice_dataset/_csv/voice_lookup_A.csv', test_id = 1, count='B')
-		
+	ex1.test('voice_dataset/_csv/voice_lookup_A1.csv', test_id = 1, count='A')
+	'''
+	if (testID%3==1):		
+		seed = random.randint(1,2)
+		if (seed == 1):
+			ex1.test('voice_dataset/_csv/training.csv', test_id = 1, count='A', training=True)
+			ex1.test('voice_dataset/_csv/voice_lookup_A1.csv', test_id = 1, count='A')
+			ex1.test('voice_dataset/_csv/training.csv', test_id = 2, count='B', training=True)
+			ex1.test('voice_dataset/_csv/voice_lookup_B.csv', test_id = 2, count='B')
+		elif (seed == 2):
+			ex1.test('voice_dataset/_csv/training.csv', test_id = 2, count='A', training=True)
+			ex1.test('voice_dataset/_csv/voice_lookup_B.csv', test_id = 2, count='A')
+			ex1.test('voice_dataset/_csv/training.csv', test_id = 1, count='B', training=True)
+			ex1.test('voice_dataset/_csv/voice_lookup_A1.csv', test_id = 1, count='B')
+	elif (testID%3==2):
+		seed = random.randint(1,2)
+		if (seed == 1):
+			ex1.test('voice_dataset/_csv/training.csv', test_id = 1, count='A', training=True)
+			ex1.test('voice_dataset/_csv/voice_lookup_A1.csv', test_id = 1, count='A')
+			ex1.test('voice_dataset/_csv/training.csv', test_id = 2, count='B', training=True)
+			ex1.test('voice_dataset/_csv/voice_lookup_A2.csv', test_id = 2, count='B')
+		elif (seed == 2):
+			ex1.test('voice_dataset/_csv/training.csv', test_id = 2, count='A', training=True)
+			ex1.test('voice_dataset/_csv/voice_lookup_B.csv', test_id = 2, count='A')
+			ex1.test('voice_dataset/_csv/training.csv', test_id = 1, count='B', training=True)
+			ex1.test('voice_dataset/_csv/voice_lookup_A.csv', test_id = 1, count='B')
+	elif (testID%3==3):
+		seed = random.randint(1,2)
+		if (seed == 1):
+			ex1.test('voice_dataset/_csv/training.csv', test_id = 1, count='A', training=True)
+			ex1.test('voice_dataset/_csv/voice_lookup_A2.csv', test_id = 1, count='A')
+			ex1.test('voice_dataset/_csv/training.csv', test_id = 2, count='B', training=True)
+			ex1.test('voice_dataset/_csv/voice_lookup_B.csv', test_id = 2, count='B')
+		elif (seed == 2):
+			ex1.test('voice_dataset/_csv/training.csv', test_id = 2, count='A', training=True)
+			ex1.test('voice_dataset/_csv/voice_lookup_B.csv', test_id = 2, count='A')
+			ex1.test('voice_dataset/_csv/training.csv', test_id = 1, count='B', training=True)
+			ex1.test('voice_dataset/_csv/voice_lookup_A2.csv', test_id = 1, count='B')
+	'''
 
-	# ex1.test2('voice_dataset/_csv/voice_lookup_B.csv')
 
-	#ex1.test2('sounds_t4.csv')
-
-	# test #2
 

@@ -1,0 +1,3 @@
+TestID, UserID, voice, choice1, t1, choice2, t2, choice3, t3, reset, s1, s2, s3 
+1,1,Cali_M,stevie,3.1657896409997193,pr2,0.3561901139996735,sciprr,0.5951963129996329,0,4,4,3
+1,1,Cali_F,stevie,0.32682384899999306,pepper,0.17984237999962716,sciprr,0.18870714400009092,0,4,2,3
