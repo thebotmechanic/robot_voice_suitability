@@ -18,15 +18,14 @@ class robotVoiceEval:
 		except:  
 		    # create dictionary of robots that are needed
 		    self.expInfo = {
-		    "robot_0":"robot_imgs/r2d2.png",
-		    "robot_1":"robot_imgs/stevie.png",
-		    "robot_2":"robot_imgs/pr2.png",
-		    "robot_3":"robot_imgs/pepper.png",
-		    "robot_4":"robot_imgs/sciprr.png",
-		    "robot_5":"robot_imgs/icub.png",
-		    "robot_6":"robot_imgs/flash.png",
-		    "robot_7":"robot_imgs/g5.png",
-		    "robot_8":"robot_imgs/poli.png",
+		    "robot_1":"robot_imgs/stevie-rs.png",
+		    "robot_2":"robot_imgs/pr2-rs.png",
+		    "robot_3":"robot_imgs/pepper-rs.png",
+		    "robot_4":"robot_imgs/sciprr-rs.png",
+		    "robot_5":"robot_imgs/icub-rs.png",
+		    "robot_6":"robot_imgs/flash-rs.png",
+		    "robot_7":"robot_imgs/g5-rs.png",
+		    "robot_8":"robot_imgs/poli-rs.png",
 		    "button":"robot_imgs/button.png",
 		    "robots": ["robot_1","robot_2","robot_3","robot_4","robot_5","robot_6","robot_7","robot_8"],
 		    "testing_list": ["stevie","pr2","pepper","sciprr","icub","flash","g5","poli"]
@@ -158,11 +157,39 @@ class robotVoiceEval:
 	def updateRobotList(self, test=1, img_width=768/2.5,img_height=950/2.5):
 
 		if self.training is True:
-			self.expInfo["robot_1"] = "robot_imgs/r2d2.png"
-			self.voiceLookup["robot_1"] = "r2d2"
+			self.expInfo["robot_1"] = "robot_imgs/chappie.png"
+			self.expInfo["robot_2"] = "robot_imgs/c3po.png"
+			self.expInfo["robot_3"] = "robot_imgs/walle.png"
+			self.expInfo["robot_4"] = "robot_imgs/r2d2.png"
+			self.expInfo["robot_5"] = "robot_imgs/baymax.png"
+			self.expInfo["robot_6"] = "robot_imgs/sonny.png"
+			self.expInfo["robot_7"] = "robot_imgs/ava.png"
+			self.expInfo["robot_8"] = "robot_imgs/robocop.png"
+			self.voiceLookup["robot_1"] = "chappie"
+			self.voiceLookup["robot_2"] = "c3p0"
+			self.voiceLookup["robot_3"] = "walle"
+			self.voiceLookup["robot_4"] = "r2d2"
+			self.voiceLookup["robot_5"] = "baymax"
+			self.voiceLookup["robot_6"] = "sonny"
+			self.voiceLookup["robot_7"] = "ava"
+			self.voiceLookup["robot_8"] = "robocop"
 		else:
-			self.expInfo["robot_1"] = "robot_imgs/stevie.png"
+			self.expInfo["robot_1"] = "robot_imgs/stevie-rs.png"
+			self.expInfo["robot_2"] = "robot_imgs/pr2-rs.png"
+			self.expInfo["robot_3"] = "robot_imgs/pepper-rs.png"
+			self.expInfo["robot_4"] = "robot_imgs/sciprr-rs.png"
+			self.expInfo["robot_5"] = "robot_imgs/icub-rs.png"
+			self.expInfo["robot_6"] = "robot_imgs/flash-rs.png"
+			self.expInfo["robot_7"] = "robot_imgs/g5-rs.png"
+			self.expInfo["robot_8"] = "robot_imgs/poli-rs.png"
 			self.voiceLookup["robot_1"] = "stevie"
+			self.voiceLookup["robot_2"] = "pr2"
+			self.voiceLookup["robot_3"] = "pepper"
+			self.voiceLookup["robot_4"] = "sciprr"
+			self.voiceLookup["robot_5"] = "icub"
+			self.voiceLookup["robot_6"] = "flash"
+			self.voiceLookup["robot_7"] = "g5"
+			self.voiceLookup["robot_8"] = "poli"
 		   
 		# initialise robots that will be used for the study
 		self.img_robo1 = visual.ImageStim(self.win, units='pix', size=(img_width,img_height), image=self.expInfo["robot_1"])    
@@ -386,17 +413,22 @@ class robotVoiceEval:
 				self.speak(voice)
 				# switch to different splash screen
 				if i == 0:
-					self.splashScreen("Oh, hi there")
+					self.splash("Oh, hi there")
 				elif i == 1: 
-					self.splashScreen("Ok, thanks for letting me know.")
+					self.splash("Ok, thanks for letting me know.")
 				elif i == 2:
-					self.splashScreen("Sure thing. Take your time.")
+					self.splash("Sure thing. Take your time.")
 
 		# return the order voices were played - needed for replaying 
 		return voiceOrder
 
 	# create splash screen that requires buttonpress to advance
-	def splashScreen(self, txtstring):
+	def splash(self, txtstring, col_arg=0):
+		if col_arg == 1:
+			print('background is true')
+			back = visual.Rect(self.win, width=1920, height=1080, fillColor='black')
+			back.draw()
+
 		item = visual.TextStim(self.win, 
 		    pos=[0,0],
 		    text=txtstring,
@@ -407,6 +439,7 @@ class robotVoiceEval:
 		    text="press any button to continue",
 		    height=30, wrapWidth=1500, units='pix'
 		    )
+
 		item.draw()
 		advance.draw()
 		self.win.flip()
@@ -425,12 +458,15 @@ class robotVoiceEval:
 	def test(self, voicefile, test_id, count='A', training=False):
 		
 		if training is True:
-			self.training = True
-			self.splashScreen("Training: Test %s" % count)
+			self.training = True		
+			sen = "Training: Test %s" % count	
 		else:
 			self.training = False
+			sen = "Test %s" % count
 			# initialise screen
-			self.splashScreen("Test %s" % count)
+		
+		
+		self.splash(sen,1)
 		
 		# import and randomise order of voices
 		[voicelist, voiceNames] = self.loadVoices(voicefile)		
@@ -501,14 +537,12 @@ class robotVoiceEval:
 
 
 if __name__ == "__main__":    #event.waitKeys()
-
 	# test #1
-	ex1 = robotVoiceEval(guiID=True, display=True, shorten=False)
+	ex1 = robotVoiceEval(guiID=True, display=True, shorten=True)
 	# RANDOM FUNCTION TO DETERMINE WHAT GOES FIRST
-	testID = print(ex1.ID)
 
-	ex1.test('voice_dataset/_csv/voice_lookup_A1.csv', test_id = 1, count='A')
-	'''
+	testID = int(ex1.ID)
+
 	if (testID%3==1):		
 		seed = random.randint(1,2)
 		if (seed == 1):
@@ -530,9 +564,9 @@ if __name__ == "__main__":    #event.waitKeys()
 			ex1.test('voice_dataset/_csv/voice_lookup_A2.csv', test_id = 2, count='B')
 		elif (seed == 2):
 			ex1.test('voice_dataset/_csv/training.csv', test_id = 2, count='A', training=True)
-			ex1.test('voice_dataset/_csv/voice_lookup_B.csv', test_id = 2, count='A')
+			ex1.test('voice_dataset/_csv/voice_lookup_A2.csv', test_id = 2, count='A')
 			ex1.test('voice_dataset/_csv/training.csv', test_id = 1, count='B', training=True)
-			ex1.test('voice_dataset/_csv/voice_lookup_A.csv', test_id = 1, count='B')
+			ex1.test('voice_dataset/_csv/voice_lookup_A1.csv', test_id = 1, count='B')
 	elif (testID%3==3):
 		seed = random.randint(1,2)
 		if (seed == 1):
@@ -545,7 +579,6 @@ if __name__ == "__main__":    #event.waitKeys()
 			ex1.test('voice_dataset/_csv/voice_lookup_B.csv', test_id = 2, count='A')
 			ex1.test('voice_dataset/_csv/training.csv', test_id = 1, count='B', training=True)
 			ex1.test('voice_dataset/_csv/voice_lookup_A2.csv', test_id = 1, count='B')
-	'''
 
 
 
