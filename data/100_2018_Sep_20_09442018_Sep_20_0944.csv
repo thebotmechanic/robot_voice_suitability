@@ -1,0 +1,2 @@
+TestID, UserID, voice, repeated, choice1, t1, choice2, t2, choice3, t3, resetEval, s1, s2, s3 
+1,100,training,False,chappie,0.4128062010004214,walle,0.15296461599973554,r2d2,0.17012030800015054,0,4,2,2

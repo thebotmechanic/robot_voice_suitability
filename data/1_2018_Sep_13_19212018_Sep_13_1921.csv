@@ -1,0 +1,5 @@
+TestID, UserID, voice, repeated, choice1, t1, choice2, t2, choice3, t3, resetEval, s1, s2, s3 
+1,1,Rome_F,False,stevie,0.00020252899957995396
+1,1,Rome_F,False,stevie,0.000244621000092593,pepper,0.0004871889996138634
+1,1,Rome_F,False,stevie,0.00029223599995020777,pepper,0.0004584119997161906
+1,1,Rome_F,False,stevie,0.0003983469996455824,pepper,0.00043943800119450316

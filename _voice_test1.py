@@ -45,7 +45,8 @@ class robotVoiceEval:
 		    "robot_5":"icub",
 		    "robot_6":"flash",
 		    "robot_7":"g5",
-		    "robot_8":"poli"}
+		    "robot_8":"poli",
+		    "button":"reset"}
 
 		# index voices with images
 		self.soundLink = {
@@ -97,7 +98,7 @@ class robotVoiceEval:
 	def openLogFile(self):
 		fileName = self.ID +'_'+ self.expInfo['dateStr'] + self.expInfo['dateStr']
 		self.dataFile = open('data/'+fileName+'.csv', 'w')  
-		self.dataFile.write('TestID, UserID, voice, choice1, t1, choice2, t2, choice3, t3, reset, s1, s2, s3 \n') # todo ID, suitability
+		self.dataFile.write('TestID, UserID, voice, repeated, choice1, t1, choice2, t2, choice3, t3, resetEval, s1, s2, s3 \n') # todo ID, suitability
 
 	# saves stored data to log file
 	def saveData(self,data):
@@ -141,10 +142,10 @@ class robotVoiceEval:
 		voice = sound.Sound(voice_clip)
 		waitTime = voice.getDuration()
 		## todo - this part could be initialised in init function
-		listenText = visual.TextStim(self.win,pos=[0,450],text="Listen to the sound",height=40,wrapWidth=1000,units='pix')
+		#listenText = visual.TextStim(self.win,pos=[0,450],text="Listen to the sound",height=40,wrapWidth=1000,units='pix')
 		fixation = visual.GratingStim(self.win, color=-1, colorSpace='rgb',
-		                          tex=None, mask='cross', size=10)
-		listenText.draw()
+		                          tex=None, mask='cross', size=30)
+		#listenText.draw()
 		fixation.draw()
 		self.win.flip()
 		voice.play()
@@ -155,7 +156,6 @@ class robotVoiceEval:
 	
 	# called at the start of program to place robots on the screen
 	def updateRobotList(self, test=1, img_width=768/2.5,img_height=950/2.5):
-
 		if self.training is True:
 			self.expInfo["robot_1"] = "robot_imgs/chappie.png"
 			self.expInfo["robot_2"] = "robot_imgs/c3po.png"
@@ -241,6 +241,10 @@ class robotVoiceEval:
 	# filter refers to not showing all robots
 	def selectRobot(self, choice, list, index = "dummy", ignore=None, filter=False):   
 
+		if self.showbutton is False:
+			list.pop(-1)
+			self.showbutton = True
+			#print(list)
 		# if we only want to show a selection of robots
 		if filter is True:
 			new_list = []
@@ -350,7 +354,7 @@ class robotVoiceEval:
 			if sum(self.mouse.getPressed()) and self.button.contains(self.mouse):
 				reset = True
 				print ('triggered')
-				core.wait(0.1)
+				core.wait(0.5)
 				break
 			else:
 				reset = False
@@ -365,7 +369,7 @@ class robotVoiceEval:
 			print('rating was %i' % ratingScale3.getRating() )
 			return [ratingScale1.getRating(), ratingScale2.getRating(), ratingScale3.getRating()]
 
-	# prompts user with likert scale evaluation
+	'''# prompts user with likert scale evaluation
 	def getRating(self, robot_img=0, img_width=768/2.5,img_height=950/2.5):
 		scales = '1=Extremely Suitable, 9=Extremely Unsuitable'
 		label = ['1','2','3','4','5']
@@ -389,23 +393,29 @@ class robotVoiceEval:
 			self.win.flip()
 
 		print('rating was %i' % ratingScale.getRating() )
-		return ratingScale.getRating()
+		return ratingScale.getRating()'''
 
 	# function to orchestrate playing of voices
 	# testID refers to what test is being run 
 	# num_iter refers to how many clips to be played
-	def playVoices(self, soundfiles, soundID, testID = 1, num_iter = 3):			
+	def playVoices(self, soundfiles, redo=False, testID = 1, num_iter = 3):			
 		voiceOrder = []
+		voice_data = soundfiles
 		for i in range(0,num_iter):
 			# for random sampling 
-			if testID ==1:
+			if (testID ==1)&(redo ==True):
 				## todo modify so doesnt choose same voice twice
-				voice = random.choice(soundfiles)
+				voice = voice_data[i]
 				voiceOrder.append(voice)
-				soundfiles.remove(voice) # removes item from list
 				self.speak(voice)
 				core.wait(0.5)
-
+			elif testID ==1:
+				## todo modify so doesnt choose same voice twice
+				voice = random.choice(voice_data)
+				voiceOrder.append(voice)
+				voice_data.remove(voice) # removes item from list
+				self.speak(voice)
+				core.wait(0.5)
 			# for staged scenario
 			elif testID ==2:
 				voice = soundfiles[i]
@@ -455,17 +465,28 @@ class robotVoiceEval:
 			height=60, wrapWidth=1500, units='pix')
 		return item
 
-	def test(self, voicefile, test_id, count='A', training=False):
-		
+	# function to evaluate if all file path locations are ok
+	def voicer(self, file, iter =3):
+		[voicelist, voiceNames] = self.loadVoices(file)		
+		[voicelist, voiceNames] = self.randomiseVoices(voicelist, voiceNames)
+
+		for voice in range(0,len(voiceNames)):
+			self.playVoices(voicelist[voice], num_iter = iter)
+
+
+	def test(self, voicefile, test_id, count='A', training=False):		
 		if training is True:
 			self.training = True		
 			sen = "Training: Test %s" % count	
+			self.showbutton = False
 		else:
 			self.training = False
 			sen = "Test %s" % count
-			# initialise screen
-		
-		
+			self.showbutton = True	
+
+		if training is True:
+			self.splash("Welcome to the Robot Voice Experiment")
+
 		self.splash(sen,1)
 		
 		# import and randomise order of voices
@@ -476,16 +497,26 @@ class robotVoiceEval:
 		# loop to iterate through each voice profile
 		for voice in range(0,len(voiceNames)):
 			repeat = True
-			while repeat is True:
+			repeat_count = False
+			redo_voice = False
+			while (repeat is True):
 				# refresh list of robots
 				robot_list = self.updateRobotList()
 				# play voice files corresponding to voice profile
-				voiceOrder = self.playVoices(voicelist[voice], voiceNames[voice], testID=test_id)
-				repeat = False
+				if redo_voice is False:
+					#tempResponse.append('0') 
+					voiceOrder = self.playVoices(voicelist[voice], testID=test_id)
+					
+				elif redo_voice is True:
+					#tempResponse.append('0') 
+					self.playVoices(voiceOrder, testID=test_id, redo=True)	
+					
+				
 				counter = 0 # initialise loop for selecting top three robots
 				num_picks = 3
-				tempResponse = [str(test_id), self.ID, voiceNames[voice]]  # update log
+				tempResponse = [str(test_id), self.ID, voiceNames[voice], str(redo_voice)]  # update log
 				pick = [] # initialise list for storing robots chosen
+				selections = []
 				while  counter < num_picks: 
 					# show images of robots
 					self.selectRobot(counter,self.robot_list)
@@ -494,55 +525,102 @@ class robotVoiceEval:
 					self.clock.reset()
 					# get robot choice
 					[name, clicked, index, timer]  = self.checkRobot()
+					core.wait(0.05)
 					print("time taken was %f seconds" % timer)
 
-					# todo save details of choice
-					if name != "button":
-						# get rating on Likert scale
-						# remove selected robot from list
-						# self.robot_list.remove(clicked)
-						# update screen with to reflect selection
 
-						pick.append(self.updateScreen(index,counter))
-						for item in pick:
-							item.draw()
-						counter +=1
-					else:
-						# go back to start of voice
-						print("breakTrigger called")
-						break
-
-					tempResponse.append(self.voiceLookup[name])
-					tempResponse.append(str(timer))
-					core.wait(0.2)
-
-					# get rating 
-					if counter == num_picks:
-						self.selectRobot(counter,self.robot_list)
-						# refresh screen and timer 
-						evalScore = self.getRating2(pick)
-						if evalScore is True:
-							repeat = True
-							tempResponse.append('1') # trigger reset cell
-							break
+					# check if its been picked before
+					try: 
+						(selections.index(name))
+					except:	
+						selections.append(name)
+						# todo save details of choice
+						if name != "button":
+							# get rating on Likert scale
+							# remove selected robot from list
+							# self.robot_list.remove(clicked)
+							# update screen with to reflect selection
+							#repeat = False
+							pick.append(self.updateScreen(index,counter))
+							for item in pick: 
+								item.draw()
+							counter +=1
+							#repeat_count = False
 						else:
-							repeat = False
-							# print data to file
-							tempResponse.append('0') # trigger non-reset cell
-							for i in evalScore:
-									tempResponse.append(str(i))
+							#repeat = True
+							# go back to start of voice
+							redo_voice = True		
+							print("breakTrigger called")
+							break
+
+						tempResponse.append(self.voiceLookup[name])
+						tempResponse.append(str(timer))
+						core.wait(0.2)
+
+						# get rating 
+						if (counter == num_picks)&(repeat_count == False):
+							self.selectRobot(counter,self.robot_list)
+							# refresh screen and timer 
+							evalScore = self.getRating2(pick)
+							if evalScore is True:
+								repeat = True
+								redo_voice = True
+								tempResponse.append('1') # trigger reset cell
+								break
+							else:							
+								repeat = False
+								repeat_count = False
+								# print data to file
+								tempResponse.append('0') # trigger non-reset cell
+								for i in evalScore:
+										tempResponse.append(str(i))
+					else:
+						for item in pick: 
+							item.draw()
+
+					#if repeat_count is True:
+					#	repeat_count = False
+					#	self.playVoices(voiceOrder, testID=test_id, redo=True)	
 				tempResponse = ','.join(tempResponse)
 				self.saveData(tempResponse+'\n')
 				print(tempResponse) 
+				#self.win.flip()
+		if training is False:
+			self.splash("Thank you for your participation. Have a nice day.")
+		self.win.flip()
+		core.wait(0.5)
 
 
 if __name__ == "__main__":    #event.waitKeys()
 	# test #1
-	ex1 = robotVoiceEval(guiID=True, display=True, shorten=True)
+	ex1 = robotVoiceEval(guiID=True, display=True, shorten=False)
 	# RANDOM FUNCTION TO DETERMINE WHAT GOES FIRST
 
 	testID = int(ex1.ID)
+	#ex1.test('voice_dataset/_csv/voice_lookup_B.csv', test_id = 2, count='B')
 
+	#ex1.test('voice_dataset/_csv/voice_lookup_A1.csv', test_id = 1, count='A')
+
+	# debug
+	#ex1.voicer('voice_dataset/_csv/voice_lookup_A1.csv',14)
+	#ex1.voicer('voice_dataset/_csv/voice_lookup_A2.csv',14)
+	#ex1.voicer('voice_dataset/_csv/voice_lookup_B.csv', 3)
+	#ex1.test('voice_dataset/_csv/voice_lookup_A1.csv', test_id = 1, count='A')
+	
+	#ex1.test('voice_dataset/_csv/training.csv', test_id = 1, count='A', training=True)
+
+	if (testID%3==1):	
+		ex1.test('voice_dataset/_csv/training.csv', test_id = 1, count='English', training=True)
+		ex1.test('voice_dataset/_csv/voice_lookup_A1.csv', test_id = 1, count='English')
+	elif (testID%3==2):
+		ex1.test('voice_dataset/_csv/training.csv', test_id = 1, count='Robotese', training=True)
+		ex1.test('voice_dataset/_csv/voice_lookup_A2.csv', test_id = 1, count='Robotese')
+	elif (testID%3==0):
+		ex1.test('voice_dataset/_csv/training.csv', test_id = 2, count='Dialogue', training=True)
+		ex1.test('voice_dataset/_csv/voice_lookup_B.csv', test_id = 2, count='Dialogue')
+
+	# 25 minute test
+	'''
 	if (testID%3==1):		
 		seed = random.randint(1,2)
 		if (seed == 1):
@@ -560,11 +638,11 @@ if __name__ == "__main__":    #event.waitKeys()
 		if (seed == 1):
 			ex1.test('voice_dataset/_csv/training.csv', test_id = 1, count='A', training=True)
 			ex1.test('voice_dataset/_csv/voice_lookup_A1.csv', test_id = 1, count='A')
-			ex1.test('voice_dataset/_csv/training.csv', test_id = 2, count='B', training=True)
-			ex1.test('voice_dataset/_csv/voice_lookup_A2.csv', test_id = 2, count='B')
+			ex1.test('voice_dataset/_csv/training.csv', test_id = 1, count='B', training=True)
+			ex1.test('voice_dataset/_csv/voice_lookup_A2.csv', test_id = 1, count='B')
 		elif (seed == 2):
-			ex1.test('voice_dataset/_csv/training.csv', test_id = 2, count='A', training=True)
-			ex1.test('voice_dataset/_csv/voice_lookup_A2.csv', test_id = 2, count='A')
+			ex1.test('voice_dataset/_csv/training.csv', test_id = 1, count='A', training=True)
+			ex1.test('voice_dataset/_csv/voice_lookup_A2.csv', test_id = 1, count='A')
 			ex1.test('voice_dataset/_csv/training.csv', test_id = 1, count='B', training=True)
 			ex1.test('voice_dataset/_csv/voice_lookup_A1.csv', test_id = 1, count='B')
 	elif (testID%3==3):
@@ -579,6 +657,6 @@ if __name__ == "__main__":    #event.waitKeys()
 			ex1.test('voice_dataset/_csv/voice_lookup_B.csv', test_id = 2, count='A')
 			ex1.test('voice_dataset/_csv/training.csv', test_id = 1, count='B', training=True)
 			ex1.test('voice_dataset/_csv/voice_lookup_A2.csv', test_id = 1, count='B')
-
-
+	'''
+				
 

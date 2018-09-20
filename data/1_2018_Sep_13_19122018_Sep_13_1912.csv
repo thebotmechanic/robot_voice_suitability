@@ -1,0 +1,3 @@
+TestID, UserID, voice, repeated, choice1, t1, choice2, t2, choice3, t3, resetEval, s1, s2, s3 
+1,1,training,False,chappie,0.34547094800109335,walle,0.8014424200009671,r2d2,2.5874953370002913,0,4,2,4
+1,1,PR2_Cepstral,False,pepper,3.312739552000494,sciprr,1.3216912370007776,stevie,0.9961242389999825,0,2,4,2
